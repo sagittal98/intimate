@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.intimate</groupId>
+  <artifactId>intimate-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>intimate-parent</name>
+
+  <!-- 打包方式：pom -->
+  <packaging>pom</packaging>
+
+  <!-- 统一版本管理 -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <!-- 依赖管理 -->
+  <dependencyManagement>
+    <dependencies>
+
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <!-- 统一插件管理 -->
+    <pluginManagement>
+
+    </pluginManagement>
+  </build>
+</project>
