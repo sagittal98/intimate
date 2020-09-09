@@ -6,7 +6,40 @@
 
   <artifactId>intimate-dao</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <parent>
+    <dependencies>
+        <!-- 导入pojo -->
+        <dependency>
+            <groupId>com.intimate</groupId>
+            <artifactId>intimate-pojo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!-- mybatis spring 配置SqlSessionFactory对象 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!-- druid连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Spring jdbc依赖  事务管理等 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <parent>
     <artifactId>intimate-parent</artifactId>
     <groupId>com.intimate</groupId>
     <version>0.0.1-SNAPSHOT</version>

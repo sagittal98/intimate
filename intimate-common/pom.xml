@@ -14,6 +14,8 @@
   </parent>
   <name>intimate-common</name>
 
+  <packaging>jar</packaging>
+
   <properties>
     <!-- sms消息包 -->
     <sms.version>0.10.119</sms.version>

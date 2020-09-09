@@ -19,9 +19,9 @@ public class SendMessages {
 //    域名
     private final String ENDPOINT = "http://smsv3.bj.baidubce.com";
     //    注册模板ID
-    private final String REGISTER_TEMPLATE_ID = "sms-tmpl-XHWdUT30478";
+    private final String REGISTER_TEMPLATE_ID = "sms-tmpl-tBQalx18874";
     //    登录模板ID
-    private final String LOGIN_TEMPLATE_ID = "null";
+    private final String LOGIN_TEMPLATE_ID = "sms-tmpl-AcQYaJ98769";
     //    通知模板ID
     private final String NOTICE_TEMPLATE_ID = "null";
     //    签名ID
@@ -73,5 +73,7 @@ public class SendMessages {
 //        结果响应
         return response != null && response.isSuccess();
     }
+
+
 
 }

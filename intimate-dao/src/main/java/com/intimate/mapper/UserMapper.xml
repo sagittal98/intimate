@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.intimate.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.intimate.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="birth" property="birth" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="SMALLINT" />
+    <result column="sex" property="sex" jdbcType="SMALLINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="native_place_code" property="nativePlaceCode" jdbcType="SMALLINT" />
+    <result column="authority_level" property="authorityLevel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="INTEGER" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    <result column="is_phone_check" property="isPhoneCheck" jdbcType="TINYINT" />
+    <result column="is_qq_check" property="isQqCheck" jdbcType="TINYINT" />
+    <result column="is_weixin_check" property="isWeixinCheck" jdbcType="TINYINT" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, openid, nick_name, birth, age, sex, phone, password, native_place_code, 
+    authority_level, qq, avatar_url, is_phone_check, is_qq_check, is_weixin_check, register_date, 
+    last_login_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.intimate.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.intimate.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.intimate.pojo.User" >
+    insert into user (user_id, openid, nick_name, 
+      birth, age, sex, 
+      phone, password, native_place_code, 
+      authority_level, qq, avatar_url, 
+      is_phone_check, is_qq_check, is_weixin_check, 
+      register_date, last_login_time)
+    values (#{userId,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{birth,jdbcType=VARCHAR}, #{age,jdbcType=SMALLINT}, #{sex,jdbcType=SMALLINT}, 
+      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nativePlaceCode,jdbcType=SMALLINT}, 
+      #{authorityLevel,jdbcType=VARCHAR}, #{qq,jdbcType=INTEGER}, #{avatarUrl,jdbcType=VARCHAR}, 
+      #{isPhoneCheck,jdbcType=TINYINT}, #{isQqCheck,jdbcType=TINYINT}, #{isWeixinCheck,jdbcType=TINYINT}, 
+      #{registerDate,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.intimate.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nativePlaceCode != null" >
+        native_place_code,
+      </if>
+      <if test="authorityLevel != null" >
+        authority_level,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+      <if test="isPhoneCheck != null" >
+        is_phone_check,
+      </if>
+      <if test="isQqCheck != null" >
+        is_qq_check,
+      </if>
+      <if test="isWeixinCheck != null" >
+        is_weixin_check,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlaceCode != null" >
+        #{nativePlaceCode,jdbcType=SMALLINT},
+      </if>
+      <if test="authorityLevel != null" >
+        #{authorityLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=INTEGER},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhoneCheck != null" >
+        #{isPhoneCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isQqCheck != null" >
+        #{isQqCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isWeixinCheck != null" >
+        #{isWeixinCheck,jdbcType=TINYINT},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.intimate.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativePlaceCode != null" >
+        native_place_code = #{record.nativePlaceCode,jdbcType=SMALLINT},
+      </if>
+      <if test="record.authorityLevel != null" >
+        authority_level = #{record.authorityLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatarUrl != null" >
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPhoneCheck != null" >
+        is_phone_check = #{record.isPhoneCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.isQqCheck != null" >
+        is_qq_check = #{record.isQqCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.isWeixinCheck != null" >
+        is_weixin_check = #{record.isWeixinCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.registerDate != null" >
+        register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      birth = #{record.birth,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=SMALLINT},
+      sex = #{record.sex,jdbcType=SMALLINT},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      native_place_code = #{record.nativePlaceCode,jdbcType=SMALLINT},
+      authority_level = #{record.authorityLevel,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=INTEGER},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      is_phone_check = #{record.isPhoneCheck,jdbcType=TINYINT},
+      is_qq_check = #{record.isQqCheck,jdbcType=TINYINT},
+      is_weixin_check = #{record.isWeixinCheck,jdbcType=TINYINT},
+      register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.intimate.pojo.User" >
+    update user
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlaceCode != null" >
+        native_place_code = #{nativePlaceCode,jdbcType=SMALLINT},
+      </if>
+      <if test="authorityLevel != null" >
+        authority_level = #{authorityLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=INTEGER},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhoneCheck != null" >
+        is_phone_check = #{isPhoneCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isQqCheck != null" >
+        is_qq_check = #{isQqCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isWeixinCheck != null" >
+        is_weixin_check = #{isWeixinCheck,jdbcType=TINYINT},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.intimate.pojo.User" >
+    update user
+    set openid = #{openid,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      age = #{age,jdbcType=SMALLINT},
+      sex = #{sex,jdbcType=SMALLINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      native_place_code = #{nativePlaceCode,jdbcType=SMALLINT},
+      authority_level = #{authorityLevel,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=INTEGER},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      is_phone_check = #{isPhoneCheck,jdbcType=TINYINT},
+      is_qq_check = #{isQqCheck,jdbcType=TINYINT},
+      is_weixin_check = #{isWeixinCheck,jdbcType=TINYINT},
+      register_date = #{registerDate,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>
