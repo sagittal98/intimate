@@ -14,4 +14,18 @@
   </parent>
   <name>intimate-common</name>
 
+  <properties>
+    <!-- sms消息包 -->
+    <sms.version>0.10.119</sms.version>
+  </properties>
+
+  <dependencies>
+    <!-- sms消息包 -->
+    <dependency>
+      <groupId>com.baidubce</groupId>
+      <artifactId>bce-java-sdk</artifactId>
+      <version>${sms.version}</version>
+    </dependency>
+  </dependencies>
+
 </project>
