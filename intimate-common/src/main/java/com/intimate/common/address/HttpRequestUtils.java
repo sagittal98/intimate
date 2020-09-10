@@ -1,4 +1,4 @@
-package com.intimate.common.sms;
+package com.intimate.common.address;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,12 +38,6 @@ class HttpRequestUtils {
             connection.setReadTimeout(1000);
             // 建立实际的链接
             connection.connect();
-            // 获取所有响应头字段
-//            Map<String, List<String>> map = connection.getHeaderFields();
-            // 遍历所有响应头字段
-//            for (String key:map.keySet()){
-//                System.out.println(key + "----->" + map.get(key));
-//            }
             // 定义bufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream(),charset));
             String line;
@@ -76,15 +70,4 @@ class HttpRequestUtils {
     String address(String url){
         return  sendGetModel(url, ID_CARD_CHAR_SET);
     }
-
-    /**
-     * post request. post请求
-     */
-    /**
-     * file upload. 文件上传
-     */
-    /**
-     * file download. 文件下载
-     */
-
 }
