@@ -28,6 +28,12 @@
       <artifactId>bce-java-sdk</artifactId>
       <version>${sms.version}</version>
     </dependency>
+    <!-- 引入pojo -->
+    <dependency>
+      <artifactId>intimate-pojo</artifactId>
+      <groupId>com.intimate</groupId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
 </project>

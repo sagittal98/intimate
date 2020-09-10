@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.intimate.dao.TownMapper" >
+  <resultMap id="BaseResultMap" type="com.intimate.pojo.Town" >
+    <id column="town_id" property="townId" jdbcType="INTEGER" />
+    <result column="town_code" property="townCode" jdbcType="INTEGER" />
+    <result column="town_name" property="townName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    town_id, town_code, town_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.intimate.pojo.TownExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from town
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from town
+    where town_id = #{townId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from town
+    where town_id = #{townId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.intimate.pojo.TownExample" >
+    delete from town
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.intimate.pojo.Town" >
+    insert into town (town_id, town_code, town_name
+      )
+    values (#{townId,jdbcType=INTEGER}, #{townCode,jdbcType=INTEGER}, #{townName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.intimate.pojo.Town" >
+    insert into town
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="townId != null" >
+        town_id,
+      </if>
+      <if test="townCode != null" >
+        town_code,
+      </if>
+      <if test="townName != null" >
+        town_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="townId != null" >
+        #{townId,jdbcType=INTEGER},
+      </if>
+      <if test="townCode != null" >
+        #{townCode,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        #{townName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.intimate.pojo.TownExample" resultType="java.lang.Integer" >
+    select count(*) from town
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update town
+    <set >
+      <if test="record.townId != null" >
+        town_id = #{record.townId,jdbcType=INTEGER},
+      </if>
+      <if test="record.townCode != null" >
+        town_code = #{record.townCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.townName != null" >
+        town_name = #{record.townName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update town
+    set town_id = #{record.townId,jdbcType=INTEGER},
+      town_code = #{record.townCode,jdbcType=INTEGER},
+      town_name = #{record.townName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.intimate.pojo.Town" >
+    update town
+    <set >
+      <if test="townCode != null" >
+        town_code = #{townCode,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where town_id = #{townId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.intimate.pojo.Town" >
+    update town
+    set town_code = #{townCode,jdbcType=INTEGER},
+      town_name = #{townName,jdbcType=VARCHAR}
+    where town_id = #{townId,jdbcType=INTEGER}
+  </update>
+</mapper>

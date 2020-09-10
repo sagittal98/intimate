@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.intimate.dao.TownMapper" >
   <resultMap id="BaseResultMap" type="com.intimate.pojo.Town" >
-    <id column="town_id" property="townId" jdbcType="SMALLINT" />
+    <id column="town_id" property="townId" jdbcType="INTEGER" />
     <result column="town_code" property="townCode" jdbcType="INTEGER" />
     <result column="town_name" property="townName" jdbcType="VARCHAR" />
   </resultMap>
@@ -81,15 +81,18 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from town
-    where town_id = #{townId,jdbcType=SMALLINT}
+    where town_id = #{townId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from town;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from town
-    where town_id = #{townId,jdbcType=SMALLINT}
+    where town_id = #{townId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.intimate.pojo.TownExample" >
     delete from town
@@ -100,7 +103,7 @@
   <insert id="insert" parameterType="com.intimate.pojo.Town" >
     insert into town (town_id, town_code, town_name
       )
-    values (#{townId,jdbcType=SMALLINT}, #{townCode,jdbcType=INTEGER}, #{townName,jdbcType=VARCHAR}
+    values (#{townId,jdbcType=INTEGER}, #{townCode,jdbcType=INTEGER}, #{townName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.intimate.pojo.Town" >
@@ -118,7 +121,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="townId != null" >
-        #{townId,jdbcType=SMALLINT},
+        #{townId,jdbcType=INTEGER},
       </if>
       <if test="townCode != null" >
         #{townCode,jdbcType=INTEGER},
@@ -127,6 +130,15 @@
         #{townName,jdbcType=VARCHAR},
       </if>
     </trim>
+  </insert>
+
+
+  <insert id="insertList" parameterType="list">
+    insert into  town (town_code, town_name)
+    values
+    <foreach item="item" index="index" collection="list"  separator=",">
+      ( #{item.townCode,jdbcType=INTEGER},#{item.townName,jdbcType=VARCHAR})
+    </foreach>
   </insert>
   <select id="countByExample" parameterType="com.intimate.pojo.TownExample" resultType="java.lang.Integer" >
     select count(*) from town
@@ -138,7 +150,7 @@
     update town
     <set >
       <if test="record.townId != null" >
-        town_id = #{record.townId,jdbcType=SMALLINT},
+        town_id = #{record.townId,jdbcType=INTEGER},
       </if>
       <if test="record.townCode != null" >
         town_code = #{record.townCode,jdbcType=INTEGER},
@@ -153,7 +165,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update town
-    set town_id = #{record.townId,jdbcType=SMALLINT},
+    set town_id = #{record.townId,jdbcType=INTEGER},
       town_code = #{record.townCode,jdbcType=INTEGER},
       town_name = #{record.townName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -170,12 +182,12 @@
         town_name = #{townName,jdbcType=VARCHAR},
       </if>
     </set>
-    where town_id = #{townId,jdbcType=SMALLINT}
+    where town_id = #{townId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.intimate.pojo.Town" >
     update town
     set town_code = #{townCode,jdbcType=INTEGER},
       town_name = #{townName,jdbcType=VARCHAR}
-    where town_id = #{townId,jdbcType=SMALLINT}
+    where town_id = #{townId,jdbcType=INTEGER}
   </update>
 </mapper>

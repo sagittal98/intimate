@@ -17,6 +17,8 @@ public interface CountryMapper {
 
     int insertSelective(Country record);
 
+    int insertList(List<Country> countryList);
+
     List<Country> selectByExample(CountryExample example);
 
     Country selectByPrimaryKey(Short countryId);

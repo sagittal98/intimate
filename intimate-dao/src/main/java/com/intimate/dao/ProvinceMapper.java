@@ -17,6 +17,8 @@ public interface ProvinceMapper {
 
     int insertSelective(Province record);
 
+    int insertList(List<Province> provinceList);
+
     List<Province> selectByExample(ProvinceExample example);
 
     Province selectByPrimaryKey(Byte provinceId);

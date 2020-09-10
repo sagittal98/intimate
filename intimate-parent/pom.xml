@@ -13,6 +13,13 @@
   <!-- 打包方式：pom -->
   <packaging>pom</packaging>
 
+  <modules>
+    <module>../intimate-dao</module>
+    <module>../intimate-pojo</module>
+    <module>../intimate-common</module>
+
+  </modules>
+
   <!-- 统一版本管理 -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

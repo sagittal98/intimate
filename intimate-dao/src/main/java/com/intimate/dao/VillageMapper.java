@@ -11,15 +11,18 @@ public interface VillageMapper {
 
     int deleteByExample(VillageExample example);
 
-    int deleteByPrimaryKey(Short villageId);
+    int deleteByPrimaryKey(Integer villageId);
 
     int insert(Village record);
 
     int insertSelective(Village record);
 
+    int insertList(List<Village> villageList);
+
+
     List<Village> selectByExample(VillageExample example);
 
-    Village selectByPrimaryKey(Short villageId);
+    Village selectByPrimaryKey(Integer villageId);
 
     int updateByExampleSelective(@Param("record") Village record, @Param("example") VillageExample example);
 

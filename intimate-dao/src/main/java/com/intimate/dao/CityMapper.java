@@ -16,6 +16,8 @@ public interface CityMapper {
     int insert(City record);
 
     int insertSelective(City record);
+    // 批量插入
+    int insertList(List<City> cityList);
 
     List<City> selectByExample(CityExample example);
 

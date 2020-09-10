@@ -3,7 +3,7 @@ package com.intimate.pojo;
 import java.io.Serializable;
 
 public class Town implements Serializable {
-    private Short townId;
+    private Integer townId;
 
     private Integer townCode;
 
@@ -11,11 +11,11 @@ public class Town implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Short getTownId() {
+    public Integer getTownId() {
         return townId;
     }
 
-    public void setTownId(Short townId) {
+    public void setTownId(Integer townId) {
         this.townId = townId;
     }
 
@@ -33,5 +33,14 @@ public class Town implements Serializable {
 
     public void setTownName(String townName) {
         this.townName = townName == null ? null : townName.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Town{" +
+                "townId=" + townId +
+                ", townCode=" + townCode +
+                ", townName='" + townName + '\'' +
+                '}';
     }
 }

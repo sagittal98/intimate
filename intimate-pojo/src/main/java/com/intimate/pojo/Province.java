@@ -34,4 +34,13 @@ public class Province implements Serializable {
     public void setProvinceName(String provinceName) {
         this.provinceName = provinceName == null ? null : provinceName.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "provinceId=" + provinceId +
+                ", provinceCode=" + provinceCode +
+                ", provinceName='" + provinceName + '\'' +
+                '}';
+    }
 }

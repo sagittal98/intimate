@@ -3,21 +3,21 @@ package com.intimate.pojo;
 import java.io.Serializable;
 
 public class Village implements Serializable {
-    private Short villageId;
+    private Integer villageId;
 
     private Long villageCode;
 
-    private Byte villageType;
+    private Short villageType;
 
     private String villageName;
 
     private static final long serialVersionUID = 1L;
 
-    public Short getVillageId() {
+    public Integer getVillageId() {
         return villageId;
     }
 
-    public void setVillageId(Short villageId) {
+    public void setVillageId(Integer villageId) {
         this.villageId = villageId;
     }
 
@@ -29,11 +29,11 @@ public class Village implements Serializable {
         this.villageCode = villageCode;
     }
 
-    public Byte getVillageType() {
+    public Short getVillageType() {
         return villageType;
     }
 
-    public void setVillageType(Byte villageType) {
+    public void setVillageType(Short villageType) {
         this.villageType = villageType;
     }
 
@@ -43,5 +43,15 @@ public class Village implements Serializable {
 
     public void setVillageName(String villageName) {
         this.villageName = villageName == null ? null : villageName.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Village{" +
+                "villageId=" + villageId +
+                ", villageCode=" + villageCode +
+                ", villageType=" + villageType +
+                ", villageName='" + villageName + '\'' +
+                '}';
     }
 }

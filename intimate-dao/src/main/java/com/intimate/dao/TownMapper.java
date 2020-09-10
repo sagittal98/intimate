@@ -11,15 +11,19 @@ public interface TownMapper {
 
     int deleteByExample(TownExample example);
 
-    int deleteByPrimaryKey(Short townId);
+    int deleteByPrimaryKey(Integer townId);
 
     int insert(Town record);
 
     int insertSelective(Town record);
 
+    int insertList(List<Town> townList);
+
     List<Town> selectByExample(TownExample example);
 
-    Town selectByPrimaryKey(Short townId);
+    Town selectByPrimaryKey(Integer townId);
+
+    List<Town> selectAll();
 
     int updateByExampleSelective(@Param("record") Town record, @Param("example") TownExample example);
 
