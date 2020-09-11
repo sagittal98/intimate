@@ -1,6 +1,8 @@
 package com.intimate.common.model;
 
 
+import com.intimate.common.enums.ResultStateEnum;
+
 /**
  * 封装json对象，所有返回结果都使用它
  */
@@ -21,10 +23,25 @@ public class Result<T> {
         this.data = data;
     }
 
-    // 错误时的构造器
-    public Result(boolean success, String error) {
-        this.success = success;
-        this.error = error;
+
+    // 成功时
+    public static <T> Result<T> success(T data,Integer code){
+        return new Result<T>(data,code);
+    }
+    private Result(T data,Integer code) {
+        this.success = true;
+        this.data = data;
+        this.error = ResultStateEnum.stateInfo(code);
+    }
+
+    // 失败时
+    public static <T> Result<T> error(Integer code){
+        return new Result<T>(code);
+    }
+    // 私有构造方法 不允许外部new
+    private Result (Integer code){
+        this.success = false;
+        this.error = ResultStateEnum.stateInfo(code);
     }
 
     public boolean isSuccess() {
@@ -49,5 +66,14 @@ public class Result<T> {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "success=" + success +
+                ", data=" + data +
+                ", error='" + error + '\'' +
+                '}';
     }
 }

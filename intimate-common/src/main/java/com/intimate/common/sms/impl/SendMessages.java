@@ -1,4 +1,4 @@
-package com.intimate.common.sms;
+package com.intimate.common.sms.impl;
 
 import com.baidubce.auth.DefaultBceCredentials;
 import com.baidubce.services.sms.SmsClient;
@@ -6,11 +6,12 @@ import com.baidubce.services.sms.SmsClientConfiguration;
 import com.baidubce.services.sms.model.SendMessageV3Request;
 import com.baidubce.services.sms.model.SendMessageV3Response;
 import com.intimate.common.model.SMSInfoModel;
+import com.intimate.common.sms.ISendMessages;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SendMessages {
+public class SendMessages implements ISendMessages {
 
 //    key
     private final String ACCESS_KEY_ID = "3f7678de978e4cee857e695fca42054b";
@@ -28,7 +29,7 @@ public class SendMessages {
     private final String SIGNATURE_ID = "sms-sign-zecwFc68161";
 
     // 注册/登录/通知  20876/24405/30693
-
+    @Override
     public boolean sendVerifyCode(SMSInfoModel smsInfoModel){
         // 创建SmsClientConfiguration实例
         SmsClientConfiguration config = new SmsClientConfiguration();
@@ -73,7 +74,4 @@ public class SendMessages {
 //        结果响应
         return response != null && response.isSuccess();
     }
-
-
-
 }

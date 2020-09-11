@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>intimate-register-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <parent>
+    <artifactId>intimate-parent</artifactId>
+    <groupId>com.intimate</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../intimate-parent/pom.xml</relativePath>
+  </parent>
+  <name>intimate-register-service</name>
+
+  <dependencies>
+    <!-- dao接口  dao 依赖common和pojo -->
+    <dependency>
+      <groupId>com.intimate</groupId>
+      <artifactId>intimate-dao</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- 引入interface -->
+    <dependency>
+      <groupId>com.intimate</groupId>
+      <artifactId>intimate-register-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <!-- Spring web依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+
+    <!-- 测试依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <!-- 指定端口 -->
+          <port>9001</port>
+          <!-- 请求路径 -->
+          <path>/</path>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

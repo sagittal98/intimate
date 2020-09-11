@@ -28,11 +28,11 @@ public class User implements Serializable {
 
     private String avatarUrl;
 
-    private Byte isPhoneCheck;
+    private Boolean isPhoneCheck;
 
-    private Byte isQqCheck;
+    private Boolean isQqCheck;
 
-    private Byte isWeixinCheck;
+    private Boolean isWeixinCheck;
 
     private Date registerDate;
 
@@ -136,27 +136,27 @@ public class User implements Serializable {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Byte getIsPhoneCheck() {
+    public Boolean getIsPhoneCheck() {
         return isPhoneCheck;
     }
 
-    public void setIsPhoneCheck(Byte isPhoneCheck) {
+    public void setIsPhoneCheck(Boolean isPhoneCheck) {
         this.isPhoneCheck = isPhoneCheck;
     }
 
-    public Byte getIsQqCheck() {
+    public Boolean getIsQqCheck() {
         return isQqCheck;
     }
 
-    public void setIsQqCheck(Byte isQqCheck) {
+    public void setIsQqCheck(Boolean isQqCheck) {
         this.isQqCheck = isQqCheck;
     }
 
-    public Byte getIsWeixinCheck() {
+    public Boolean getIsWeixinCheck() {
         return isWeixinCheck;
     }
 
-    public void setIsWeixinCheck(Byte isWeixinCheck) {
+    public void setIsWeixinCheck(Boolean isWeixinCheck) {
         this.isWeixinCheck = isWeixinCheck;
     }
 

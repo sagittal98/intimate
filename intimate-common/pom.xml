@@ -34,6 +34,37 @@
       <groupId>com.intimate</groupId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <!-- token 包-->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.7.0</version>
+    </dependency>
+    <!-- 公用dubbo包 -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+    </dependency>
+    <!-- dubbo必须-->
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+    </dependency>
+    <!-- 返回 json 数据-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+    </dependency>
+    <!-- Spring webMVC依赖  web需要包-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
   </dependencies>
 
 </project>

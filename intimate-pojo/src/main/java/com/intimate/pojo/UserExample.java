@@ -905,52 +905,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckEqualTo(Byte value) {
+        public Criteria andIsPhoneCheckEqualTo(Boolean value) {
             addCriterion("is_phone_check =", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckNotEqualTo(Byte value) {
+        public Criteria andIsPhoneCheckNotEqualTo(Boolean value) {
             addCriterion("is_phone_check <>", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckGreaterThan(Byte value) {
+        public Criteria andIsPhoneCheckGreaterThan(Boolean value) {
             addCriterion("is_phone_check >", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsPhoneCheckGreaterThanOrEqualTo(Boolean value) {
             addCriterion("is_phone_check >=", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckLessThan(Byte value) {
+        public Criteria andIsPhoneCheckLessThan(Boolean value) {
             addCriterion("is_phone_check <", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckLessThanOrEqualTo(Byte value) {
+        public Criteria andIsPhoneCheckLessThanOrEqualTo(Boolean value) {
             addCriterion("is_phone_check <=", value, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckIn(List<Byte> values) {
+        public Criteria andIsPhoneCheckIn(List<Boolean> values) {
             addCriterion("is_phone_check in", values, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckNotIn(List<Byte> values) {
+        public Criteria andIsPhoneCheckNotIn(List<Boolean> values) {
             addCriterion("is_phone_check not in", values, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckBetween(Byte value1, Byte value2) {
+        public Criteria andIsPhoneCheckBetween(Boolean value1, Boolean value2) {
             addCriterion("is_phone_check between", value1, value2, "isPhoneCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsPhoneCheckNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsPhoneCheckNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_phone_check not between", value1, value2, "isPhoneCheck");
             return (Criteria) this;
         }
@@ -965,52 +965,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckEqualTo(Byte value) {
+        public Criteria andIsQqCheckEqualTo(Boolean value) {
             addCriterion("is_qq_check =", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckNotEqualTo(Byte value) {
+        public Criteria andIsQqCheckNotEqualTo(Boolean value) {
             addCriterion("is_qq_check <>", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckGreaterThan(Byte value) {
+        public Criteria andIsQqCheckGreaterThan(Boolean value) {
             addCriterion("is_qq_check >", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsQqCheckGreaterThanOrEqualTo(Boolean value) {
             addCriterion("is_qq_check >=", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckLessThan(Byte value) {
+        public Criteria andIsQqCheckLessThan(Boolean value) {
             addCriterion("is_qq_check <", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckLessThanOrEqualTo(Byte value) {
+        public Criteria andIsQqCheckLessThanOrEqualTo(Boolean value) {
             addCriterion("is_qq_check <=", value, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckIn(List<Byte> values) {
+        public Criteria andIsQqCheckIn(List<Boolean> values) {
             addCriterion("is_qq_check in", values, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckNotIn(List<Byte> values) {
+        public Criteria andIsQqCheckNotIn(List<Boolean> values) {
             addCriterion("is_qq_check not in", values, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckBetween(Byte value1, Byte value2) {
+        public Criteria andIsQqCheckBetween(Boolean value1, Boolean value2) {
             addCriterion("is_qq_check between", value1, value2, "isQqCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsQqCheckNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsQqCheckNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_qq_check not between", value1, value2, "isQqCheck");
             return (Criteria) this;
         }
@@ -1025,52 +1025,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckEqualTo(Byte value) {
+        public Criteria andIsWeixinCheckEqualTo(Boolean value) {
             addCriterion("is_weixin_check =", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckNotEqualTo(Byte value) {
+        public Criteria andIsWeixinCheckNotEqualTo(Boolean value) {
             addCriterion("is_weixin_check <>", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckGreaterThan(Byte value) {
+        public Criteria andIsWeixinCheckGreaterThan(Boolean value) {
             addCriterion("is_weixin_check >", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsWeixinCheckGreaterThanOrEqualTo(Boolean value) {
             addCriterion("is_weixin_check >=", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckLessThan(Byte value) {
+        public Criteria andIsWeixinCheckLessThan(Boolean value) {
             addCriterion("is_weixin_check <", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckLessThanOrEqualTo(Byte value) {
+        public Criteria andIsWeixinCheckLessThanOrEqualTo(Boolean value) {
             addCriterion("is_weixin_check <=", value, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckIn(List<Byte> values) {
+        public Criteria andIsWeixinCheckIn(List<Boolean> values) {
             addCriterion("is_weixin_check in", values, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckNotIn(List<Byte> values) {
+        public Criteria andIsWeixinCheckNotIn(List<Boolean> values) {
             addCriterion("is_weixin_check not in", values, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckBetween(Byte value1, Byte value2) {
+        public Criteria andIsWeixinCheckBetween(Boolean value1, Boolean value2) {
             addCriterion("is_weixin_check between", value1, value2, "isWeixinCheck");
             return (Criteria) this;
         }
 
-        public Criteria andIsWeixinCheckNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsWeixinCheckNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_weixin_check not between", value1, value2, "isWeixinCheck");
             return (Criteria) this;
         }

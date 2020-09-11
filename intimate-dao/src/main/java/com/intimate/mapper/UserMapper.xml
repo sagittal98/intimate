@@ -14,9 +14,9 @@
     <result column="authority_level" property="authorityLevel" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="INTEGER" />
     <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
-    <result column="is_phone_check" property="isPhoneCheck" jdbcType="TINYINT" />
-    <result column="is_qq_check" property="isQqCheck" jdbcType="TINYINT" />
-    <result column="is_weixin_check" property="isWeixinCheck" jdbcType="TINYINT" />
+    <result column="is_phone_check" property="isPhoneCheck" jdbcType="BIT" />
+    <result column="is_qq_check" property="isQqCheck" jdbcType="BIT" />
+    <result column="is_weixin_check" property="isWeixinCheck" jdbcType="BIT" />
     <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -124,7 +124,7 @@
       #{birth,jdbcType=VARCHAR}, #{age,jdbcType=SMALLINT}, #{sex,jdbcType=SMALLINT}, 
       #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nativePlaceCode,jdbcType=SMALLINT}, 
       #{authorityLevel,jdbcType=VARCHAR}, #{qq,jdbcType=INTEGER}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{isPhoneCheck,jdbcType=TINYINT}, #{isQqCheck,jdbcType=TINYINT}, #{isWeixinCheck,jdbcType=TINYINT}, 
+      #{isPhoneCheck,jdbcType=BIT}, #{isQqCheck,jdbcType=BIT}, #{isWeixinCheck,jdbcType=BIT}, 
       #{registerDate,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.intimate.pojo.User" >
@@ -220,13 +220,13 @@
         #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="isPhoneCheck != null" >
-        #{isPhoneCheck,jdbcType=TINYINT},
+        #{isPhoneCheck,jdbcType=BIT},
       </if>
       <if test="isQqCheck != null" >
-        #{isQqCheck,jdbcType=TINYINT},
+        #{isQqCheck,jdbcType=BIT},
       </if>
       <if test="isWeixinCheck != null" >
-        #{isWeixinCheck,jdbcType=TINYINT},
+        #{isWeixinCheck,jdbcType=BIT},
       </if>
       <if test="registerDate != null" >
         #{registerDate,jdbcType=TIMESTAMP},
@@ -282,13 +282,13 @@
         avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.isPhoneCheck != null" >
-        is_phone_check = #{record.isPhoneCheck,jdbcType=TINYINT},
+        is_phone_check = #{record.isPhoneCheck,jdbcType=BIT},
       </if>
       <if test="record.isQqCheck != null" >
-        is_qq_check = #{record.isQqCheck,jdbcType=TINYINT},
+        is_qq_check = #{record.isQqCheck,jdbcType=BIT},
       </if>
       <if test="record.isWeixinCheck != null" >
-        is_weixin_check = #{record.isWeixinCheck,jdbcType=TINYINT},
+        is_weixin_check = #{record.isWeixinCheck,jdbcType=BIT},
       </if>
       <if test="record.registerDate != null" >
         register_date = #{record.registerDate,jdbcType=TIMESTAMP},
@@ -315,9 +315,9 @@
       authority_level = #{record.authorityLevel,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=INTEGER},
       avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
-      is_phone_check = #{record.isPhoneCheck,jdbcType=TINYINT},
-      is_qq_check = #{record.isQqCheck,jdbcType=TINYINT},
-      is_weixin_check = #{record.isWeixinCheck,jdbcType=TINYINT},
+      is_phone_check = #{record.isPhoneCheck,jdbcType=BIT},
+      is_qq_check = #{record.isQqCheck,jdbcType=BIT},
+      is_weixin_check = #{record.isWeixinCheck,jdbcType=BIT},
       register_date = #{record.registerDate,jdbcType=TIMESTAMP},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -361,13 +361,13 @@
         avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="isPhoneCheck != null" >
-        is_phone_check = #{isPhoneCheck,jdbcType=TINYINT},
+        is_phone_check = #{isPhoneCheck,jdbcType=BIT},
       </if>
       <if test="isQqCheck != null" >
-        is_qq_check = #{isQqCheck,jdbcType=TINYINT},
+        is_qq_check = #{isQqCheck,jdbcType=BIT},
       </if>
       <if test="isWeixinCheck != null" >
-        is_weixin_check = #{isWeixinCheck,jdbcType=TINYINT},
+        is_weixin_check = #{isWeixinCheck,jdbcType=BIT},
       </if>
       <if test="registerDate != null" >
         register_date = #{registerDate,jdbcType=TIMESTAMP},
@@ -391,11 +391,15 @@
       authority_level = #{authorityLevel,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=INTEGER},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      is_phone_check = #{isPhoneCheck,jdbcType=TINYINT},
-      is_qq_check = #{isQqCheck,jdbcType=TINYINT},
-      is_weixin_check = #{isWeixinCheck,jdbcType=TINYINT},
+      is_phone_check = #{isPhoneCheck,jdbcType=BIT},
+      is_qq_check = #{isQqCheck,jdbcType=BIT},
+      is_weixin_check = #{isWeixinCheck,jdbcType=BIT},
       register_date = #{registerDate,jdbcType=TIMESTAMP},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
+
+  <select id="checkPhone" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(phone) from user where phone=#{phoneNumber}
+  </select>
 </mapper>
