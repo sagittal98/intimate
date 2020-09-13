@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/intimate-common/intimate-common.iml" filepath="$PROJECT_DIR$/intimate-common/intimate-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-dao/intimate-dao.iml" filepath="$PROJECT_DIR$/intimate-dao/intimate-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-parent/intimate-parent.iml" filepath="$PROJECT_DIR$/intimate-parent/intimate-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-pojo/intimate-pojo.iml" filepath="$PROJECT_DIR$/intimate-pojo/intimate-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-register-interface/intimate-register-interface.iml" filepath="$PROJECT_DIR$/intimate-register-interface/intimate-register-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-register-service/intimate-register-service.iml" filepath="$PROJECT_DIR$/intimate-register-service/intimate-register-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-register-web/intimate-register-web.iml" filepath="$PROJECT_DIR$/intimate-register-web/intimate-register-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intimate-reverse-engineering/intimate-reverse-engineering.iml" filepath="$PROJECT_DIR$/intimate-reverse-engineering/intimate-reverse-engineering.iml" />
+    </modules>
+  </component>
+</project>

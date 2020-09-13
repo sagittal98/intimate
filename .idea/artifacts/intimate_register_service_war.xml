@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="intimate-register-service:war">
+    <output-path>$PROJECT_DIR$/intimate-register-service/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>intimate-register-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="intimate-register-service.war">
+      <element id="artifact" artifact-name="intimate-register-service:war exploded" />
+    </root>
+  </artifact>
+</component>

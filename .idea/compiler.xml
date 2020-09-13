@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="intimate-register-interface" />
+        <module name="intimate-common" />
+        <module name="intimate-register-web" />
+        <module name="intimate-pojo" />
+        <module name="intimate-register-service" />
+        <module name="intimate-reverse-engineering" />
+        <module name="intimate-dao" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="intimate-common" target="1.8" />
+      <module name="intimate-dao" target="1.8" />
+      <module name="intimate-parent" target="1.8" />
+      <module name="intimate-pojo" target="1.8" />
+      <module name="intimate-register-interface" target="1.8" />
+      <module name="intimate-register-service" target="1.8" />
+      <module name="intimate-register-web" target="1.8" />
+      <module name="intimate-reverse-engineering" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

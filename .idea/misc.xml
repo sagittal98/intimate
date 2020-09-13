@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ApiGeneratorConfig">
+    <option name="excludeFieldNames">
+      <set>
+        <option value="serialVersionUID" />
+      </set>
+    </option>
+    <option name="yApiServerUrl" value="http://139.155.13.59:3000" />
+    <option name="projectToken" value="aba0ae5b5f5fe0c2c4714066119d06c80fc4b429f8825f654a3bf147862b71fd" />
+    <option name="projectId" value="11" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/intimate-register-service" />
+    <file type="web" url="file://$PROJECT_DIR$/intimate-register-web" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/intimate-common/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-pojo/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-reverse-engineering/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-register-web/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-register-service/pom.xml" />
+        <option value="$PROJECT_DIR$/intimate-register-interface/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>
