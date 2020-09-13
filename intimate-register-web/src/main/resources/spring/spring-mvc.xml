@@ -29,4 +29,15 @@
 	<dubbo:registry address="zookeeper://180.76.106.21:2181"/>
 	<dubbo:annotation package="com.intimate.register.controller" />
 
+
+	<!-- 时间设置超过1秒不重试连接！ -->
+	<dubbo:reference interface="com.intimate.register.service.IRegisterService" id="iRegisterService" retries="0" timeout="1000"/>
+
+
+	<!--指明springmvc拦截器位置-->
+	<mvc:interceptors>
+		<!--全局拦截-->
+		<bean id="intercepter" class="com.intimate.common.interceptor.Interceptor"/>
+	</mvc:interceptors>
+
 </beans>

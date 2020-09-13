@@ -1,10 +1,13 @@
 package com.intimate.common.model;
 
 
+import java.io.Serializable;
+
 /**
  * 用户信息
  */
-public class UserInfo {
+public class UserInfo  implements Serializable {
+    private static final long serialVersionUID = 1L;
     // 手机
     private String phone;
     // openid

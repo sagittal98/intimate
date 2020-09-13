@@ -3,17 +3,19 @@ package com.intimate.common.model;
 
 import com.intimate.common.enums.ResultStateEnum;
 
+import java.io.Serializable;
+
 /**
  * 封装json对象，所有返回结果都使用它
  */
-public class Result<T> {
+public class Result<T> implements Serializable {
     // 是否成功标志
     private boolean success;
     // 成功时返回的数据
     private T data;
     // 错误信息
     private String error;
-
+    private static final long serialVersionUID = 1L;
     public Result() {
     }
 

@@ -2,15 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-4.2.xsd
-        ">
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder location="classpath:properties/jdbc.properties" />
+
+
 
     <!-- 2. 阿里 druid 数据库连接池 -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
@@ -54,7 +56,7 @@
         <property name="typeAliasesPackage" value="com.intimate.pojo" />
         <!-- 扫描 entity 包,使用别名 com.chenzhijun.top.entity.Seckill->Seckill -->
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
-        <property name="mapperLocations" value="classpath:com/intimate/mapper/*.xml" />
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
 
     <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
@@ -66,26 +68,43 @@
         <property name="basePackage" value="com.intimate.dao" />
     </bean>
 
-    <!--6、平台事物管理器-->
-<!--    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-<!--        <property name="dataSource" ref="druidDataSource"/>-->
-<!--    </bean>-->
 
-    <!--7、通知-->
-    <!--    <tx:advice id="txAdvice" transaction-manager="txManager">-->
-    <!--        <tx:attributes>-->
-    <!--            <tx:method name="add*" isolation="REPEATABLE_READ" rollback-for="Exception"/>-->
-    <!--            <tx:method name="update*" isolation="REPEATABLE_READ" rollback-for="Exception"/>-->
-    <!--            <tx:method name="get*" isolation="REPEATABLE_READ" read-only="true"/>-->
-    <!--            <tx:method name="delete*" rollback-for="Exception"/>-->
-    <!--            <tx:method name="find*" isolation="REPEATABLE_READ" read-only="true"/>-->
-    <!--            <tx:method name="*"/>-->
-    <!--        </tx:attributes>-->
-    <!--    </tx:advice>-->
+<!--    6、平台事物管理器-->
+    <!-- spring提供了声明式的事务管理机制 -->
+    <!-- 配置事务管理器,让spring的事务管理器去对事务进行统一管理 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="druidDataSource"/>
+    </bean>
 
-    <!--8、aop管理事物-->
-    <!--    <aop:config>-->
-    <!--        <aop:pointcut expression="execution(* com.sagittal.notice.service..*.*(..))" id="serviceMethod"/>-->
-    <!--        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>-->
-    <!--    </aop:config>-->
+    <!-- 设置切面   把事务管理的切面设置在service实现类这一层-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* com.intimate.*.service.impl.*.*(..))" />
+    </aop:config>
+
+    <!-- 切面增强   spring提供了自带的事务增强类  tx
+        设置一下tx事务增强类的传播特性
+        -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!-- 传播行为
+			tx method指定 切面路径下 方法名 name=xxx 此次的事务传播行为
+			required 需要使用事务进行统一管理
+			read-only=true 只读模式，查询行为，不需要事务进行管理
+			对于增删改开头的方法，使用事务进行管理
+			对于查询开头的方法，只读
+			-->
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="check*" propagation="SUPPORTS" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+    <import resource="classpath*:spring/spring-aop.xml"/>
 </beans>

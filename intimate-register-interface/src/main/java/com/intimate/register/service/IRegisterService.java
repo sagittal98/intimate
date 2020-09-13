@@ -10,9 +10,9 @@ public interface IRegisterService {
      * 2. 微信授权
      * 3. QQ授权
      */
-    public Result<String> phoneRegister(SMSInfoModel smsInfoModel);
+     Result<String> phoneRegister(SMSInfoModel smsInfoModel);
     // 手机号码检查是否存在
-    public Result<SMSInfoModel> phoneIsExist(String phoneNumber);
+     Result<SMSInfoModel> phoneIsExist(String phoneNumber);
     // 发送短信验证码
-    public Result<SMSInfoModel> sendPhoneVerify(SMSInfoModel smsInfoModel);
+     Result<SMSInfoModel> sendPhoneVerify(SMSInfoModel smsInfoModel);
 }

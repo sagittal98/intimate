@@ -32,6 +32,23 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../intimate-parent/pom.xml</relativePath>
   </parent>
+
+
+  <dependencies>
+<!--    服务方 -->
+    <dependency>
+      <groupId>com.intimate</groupId>
+      <artifactId>intimate-register-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- servlet api  controller 接收前端参数使用 -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -47,32 +64,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <dependencies>
-<!--    公共jar -->
-    <dependency>
-      <groupId>com.intimate</groupId>
-      <artifactId>intimate-common</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-<!--    服务方 -->
-    <dependency>
-      <groupId>com.intimate</groupId>
-      <artifactId>intimate-register-interface</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <!-- servlet api  controller 接收前端参数使用 -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-<!--    java.lang.NoClassDefFoundError: com/fasterxml/jackson/core/util/DefaultIndenter-->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>2.9.8</version>
-    </dependency>
-
-  </dependencies>
 </project>

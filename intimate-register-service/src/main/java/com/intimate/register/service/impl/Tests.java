@@ -5,6 +5,7 @@ import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
 import com.intimate.register.service.IRegisterService;
 
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

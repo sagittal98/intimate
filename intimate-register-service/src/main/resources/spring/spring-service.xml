@@ -3,19 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	http://www.springframework.org/schema/tx/spring-tx.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-<!--    <context:component-scan base-package="com.intimate.register.service.impl"/>-->
     <!-- 扫描service包下所有使用注解的类型 -->
     <dubbo:protocol name="dubbo" port="20881"/>
     <dubbo:application name="intimate-register-service"/>
     <dubbo:registry address="zookeeper://180.76.106.21:2181"/>
     <!-- 使用注解方式暴露接口 -->
     <dubbo:annotation package="com.intimate.register.service" />
+<!--    导入aop配置-->
+    <import resource="classpath*:spring/spring-aop.xml"/>
 
 </beans>

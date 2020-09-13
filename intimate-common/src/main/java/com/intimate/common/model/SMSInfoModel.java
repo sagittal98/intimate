@@ -1,6 +1,9 @@
 package com.intimate.common.model;
 
-public class SMSInfoModel {
+import java.io.Serializable;
+
+public class SMSInfoModel  implements Serializable {
+    private static final long serialVersionUID = 1L;
     // 电话
     private String phone;
     // 验证码

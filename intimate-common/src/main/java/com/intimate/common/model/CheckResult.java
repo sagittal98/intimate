@@ -2,7 +2,10 @@ package com.intimate.common.model;
 
 import io.jsonwebtoken.Claims;
 
-public class CheckResult {
+import java.io.Serializable;
+
+public class CheckResult implements Serializable {
+    private static final long serialVersionUID = 1L;
     // 是否成功
     private boolean success;
     // 解析结果
