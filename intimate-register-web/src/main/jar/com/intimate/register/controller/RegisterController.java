@@ -91,11 +91,6 @@ public class RegisterController {
 
     /**
      *  微信授权
-     *  1、引导用户进入授权页面同意授权，获取code
-     *
-     * 2、通过code换取网页授权access_token（与基础支持中的access_token不同）和openid
-     *
-     * 3、通过网页授权access_token和openid获取用户基本信息
      * @param req  请求参数
      * @return  Result<>
      */
