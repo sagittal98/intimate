@@ -3,9 +3,7 @@ package com.intimate.register.service.impl;
 import com.alibaba.druid.filter.AutoLoad;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.intimate.common.annotation.Log;
-import com.intimate.common.model.Result;
-import com.intimate.common.model.SMSInfoModel;
-import com.intimate.common.model.UserInfo;
+import com.intimate.common.model.*;
 import com.intimate.common.sms.ISendMessages;
 import com.intimate.common.sms.impl.SendMessages;
 import com.intimate.common.token.JwtUtils;
@@ -123,6 +121,28 @@ public class RegisterServiceImpl implements IRegisterService {
             logger.info("【日志提醒】失败发送，退出发送逻辑，返回结果！");
             return Result.error(214);
         }
+    }
+
+    /**
+     * 微信授权
+     * @param weChatAuthorizationModel  参数 WeChatAuthorization
+     * @return  结果 String
+     */
+    @Override
+    public Result<String> weChatAuthorization(WeChatAuthorizationModel weChatAuthorizationModel) {
+        // todo  微信授权逻辑实现
+        return null;
+    }
+
+    /**
+     * QQ授权
+     * @param qqAuthorizationModel  QQAuthorizationModel
+     * @return String
+     */
+    @Override
+    public Result<String> QQAuthorization(QQAuthorizationModel qqAuthorizationModel) {
+        // todo  qq授权逻辑实现
+        return null;
     }
 
     /**

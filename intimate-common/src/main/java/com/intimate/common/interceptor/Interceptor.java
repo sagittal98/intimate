@@ -1,5 +1,7 @@
 package com.intimate.common.interceptor;
 
+import com.intimate.common.model.CheckResult;
+import com.intimate.common.token.JwtUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,19 +19,18 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-
-
         logger.info("【日志提醒】进入request请求前身份验证！");
         logger.info("【日志提醒】获取请求名！");
-
-        // todo
-
-        // 此处进行拦截
-        // 1. token 验证
-        // 2. 手机验证、注册放行
-
-
-        return true;
+        // todo  token验证
+//        获取请求头token
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token.equals("logon")){
+            return true;
+        }
+        // 验证token
+        CheckResult checkResult = JwtUtils.validateJWT(token);
+        httpServletRequest.setAttribute("checkResult",checkResult);
+        return checkResult.isSuccess();
     }
 
     @Override

@@ -14,12 +14,20 @@
   <packaging>pom</packaging>
 
   <modules>
+<!--    公共dao层接口-->
     <module>../intimate-dao</module>
+<!--    公共实体类-->
     <module>../intimate-pojo</module>
+<!--    公共方法-->
     <module>../intimate-common</module>
+<!--    注册服务-->
     <module>../intimate-register-interface</module>
     <module>../intimate-register-service</module>
     <module>../intimate-register-web</module>
+<!--    登录服务-->
+    <module>../intimate-login-interface</module>
+    <module>../intimate-login-service</module>
+    <module>../intimate-login-web</module>
   </modules>
 
   <!-- 统一版本管理 -->

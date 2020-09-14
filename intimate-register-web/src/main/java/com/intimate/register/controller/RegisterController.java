@@ -96,8 +96,15 @@ public class RegisterController {
      */
     @RequestMapping("/wechatAuthorization")
     @ResponseBody
-    public Result wechatAuthorization(HttpServletRequest req){
+    public Result<String> wechatAuthorization(HttpServletRequest req){
+        // todo  微信授权接口
+        return null;
+    }
 
+    @RequestMapping("/qqAuthorization")
+    @ResponseBody
+    public Result<String> qqAuthorization(HttpServletRequest req){
+        // todo  qq授权接口
         return null;
     }
 

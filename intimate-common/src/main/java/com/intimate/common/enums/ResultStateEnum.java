@@ -1,10 +1,6 @@
 package com.intimate.common.enums;
 
 
-import io.netty.buffer.ByteBuf;
-
-import java.net.BindException;
-
 /**
  * 返回状态说明
  */
@@ -44,7 +40,17 @@ public enum ResultStateEnum {
     // 注册成功
     REGISTER_SUCCESSFULLY(216,"Register is successfully!"),
     // 数据库插入失败
-    SQL_INSERT_FAILED(217,"SQL insert is failed!")
+    SQL_INSERT_FAILED(217,"SQL insert is failed!"),
+    // 可以登录
+    CAN_LOGIN(218,"You can log in this system!"),
+    // 需要注册
+    NEED_REGISTER(219,"You need log on this system!"),
+    // 登录成功
+    LOGIN_SUCCESSFULLY(220,"Welcome to the System of Hydrogen Honey!"),
+    // 数据库查询失败
+    SQL_SELECT_FAILED(221,"SQL select failed!"),
+    // token 更新成功
+    TOKEN_SUCCESSFULLY(222,"Update token successfully!")
     ;
 
     public static final char[] JWT_SECRET = "hydrogen_honey".toCharArray();
