@@ -299,6 +299,7 @@
         >
             <generatedKey column="${table.generatedKey.column}" sqlStatement="${table.generatedKey.sqlStatement}" identity="true" />
         </table>
+
         <table
                 tableName="village"
                 domainObjectName="Village"
@@ -314,5 +315,38 @@
         >
             <generatedKey column="${table.generatedKey.column}" sqlStatement="${table.generatedKey.sqlStatement}" identity="true" />
         </table>
+
+        <table
+                tableName="group"
+                domainObjectName="Group"
+                enableInsert="${table.enableInsert}"
+                enableDeleteByPrimaryKey="${table.enableDeleteByPrimaryKey}"
+                enableUpdateByPrimaryKey="${table.enableUpdateByPrimaryKey}"
+                enableSelectByPrimaryKey="${table.enableSelectByPrimaryKey}"
+
+                enableDeleteByExample="${table.enableDeleteByExample}"
+                enableUpdateByExample="${table.enableUpdateByExample}"
+                enableSelectByExample="${table.enableSelectByExample}"
+                enableCountByExample="${table.enableCountByExample}"
+        >
+            <generatedKey column="${table.generatedKey.column}" sqlStatement="${table.generatedKey.sqlStatement}" identity="true" />
+        </table>
+
+        <table
+                tableName="member"
+                domainObjectName="Member"
+                enableInsert="${table.enableInsert}"
+                enableDeleteByPrimaryKey="${table.enableDeleteByPrimaryKey}"
+                enableUpdateByPrimaryKey="${table.enableUpdateByPrimaryKey}"
+                enableSelectByPrimaryKey="${table.enableSelectByPrimaryKey}"
+
+                enableDeleteByExample="${table.enableDeleteByExample}"
+                enableUpdateByExample="${table.enableUpdateByExample}"
+                enableSelectByExample="${table.enableSelectByExample}"
+                enableCountByExample="${table.enableCountByExample}"
+        >
+            <generatedKey column="${table.generatedKey.column}" sqlStatement="${table.generatedKey.sqlStatement}" identity="true" />
+        </table>
+
     </context>
 </generatorConfiguration>

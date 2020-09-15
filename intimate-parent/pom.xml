@@ -28,6 +28,10 @@
     <module>../intimate-login-interface</module>
     <module>../intimate-login-service</module>
     <module>../intimate-login-web</module>
+<!--    账户服务-->
+    <module>../intimate-user-interface</module>
+    <module>../intimate-user-service</module>
+    <module>../intimate-user-web</module>
   </modules>
 
   <!-- 统一版本管理 -->

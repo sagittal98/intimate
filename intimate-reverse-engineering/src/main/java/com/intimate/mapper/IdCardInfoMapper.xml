@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.intimate.dao.IdCardInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.intimate.pojo.IdCardInfo" >
+    <id column="id_card_info_id" property="idCardInfoId" jdbcType="BIGINT" />
+    <result column="id_card_number" property="idCardNumber" jdbcType="BIGINT" />
+    <result column="id_card_name" property="idCardName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="id_card_image_positive" property="idCardImagePositive" jdbcType="VARCHAR" />
+    <result column="id_card_image_verso" property="idCardImageVerso" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_card_info_id, id_card_number, id_card_name, user_id, id_card_image_positive, id_card_image_verso
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.intimate.pojo.IdCardInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from id_card_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from id_card_info
+    where id_card_info_id = #{idCardInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from id_card_info
+    where id_card_info_id = #{idCardInfoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.intimate.pojo.IdCardInfoExample" >
+    delete from id_card_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.intimate.pojo.IdCardInfo" >
+    insert into id_card_info (id_card_info_id, id_card_number, id_card_name, 
+      user_id, id_card_image_positive, id_card_image_verso
+      )
+    values (#{idCardInfoId,jdbcType=BIGINT}, #{idCardNumber,jdbcType=BIGINT}, #{idCardName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{idCardImagePositive,jdbcType=VARCHAR}, #{idCardImageVerso,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.intimate.pojo.IdCardInfo" >
+    insert into id_card_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idCardInfoId != null" >
+        id_card_info_id,
+      </if>
+      <if test="idCardNumber != null" >
+        id_card_number,
+      </if>
+      <if test="idCardName != null" >
+        id_card_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="idCardImagePositive != null" >
+        id_card_image_positive,
+      </if>
+      <if test="idCardImageVerso != null" >
+        id_card_image_verso,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idCardInfoId != null" >
+        #{idCardInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="idCardNumber != null" >
+        #{idCardNumber,jdbcType=BIGINT},
+      </if>
+      <if test="idCardName != null" >
+        #{idCardName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="idCardImagePositive != null" >
+        #{idCardImagePositive,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardImageVerso != null" >
+        #{idCardImageVerso,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.intimate.pojo.IdCardInfoExample" resultType="java.lang.Integer" >
+    select count(*) from id_card_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update id_card_info
+    <set >
+      <if test="record.idCardInfoId != null" >
+        id_card_info_id = #{record.idCardInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.idCardNumber != null" >
+        id_card_number = #{record.idCardNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.idCardName != null" >
+        id_card_name = #{record.idCardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.idCardImagePositive != null" >
+        id_card_image_positive = #{record.idCardImagePositive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCardImageVerso != null" >
+        id_card_image_verso = #{record.idCardImageVerso,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update id_card_info
+    set id_card_info_id = #{record.idCardInfoId,jdbcType=BIGINT},
+      id_card_number = #{record.idCardNumber,jdbcType=BIGINT},
+      id_card_name = #{record.idCardName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      id_card_image_positive = #{record.idCardImagePositive,jdbcType=VARCHAR},
+      id_card_image_verso = #{record.idCardImageVerso,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.intimate.pojo.IdCardInfo" >
+    update id_card_info
+    <set >
+      <if test="idCardNumber != null" >
+        id_card_number = #{idCardNumber,jdbcType=BIGINT},
+      </if>
+      <if test="idCardName != null" >
+        id_card_name = #{idCardName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="idCardImagePositive != null" >
+        id_card_image_positive = #{idCardImagePositive,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardImageVerso != null" >
+        id_card_image_verso = #{idCardImageVerso,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id_card_info_id = #{idCardInfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.intimate.pojo.IdCardInfo" >
+    update id_card_info
+    set id_card_number = #{idCardNumber,jdbcType=BIGINT},
+      id_card_name = #{idCardName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      id_card_image_positive = #{idCardImagePositive,jdbcType=VARCHAR},
+      id_card_image_verso = #{idCardImageVerso,jdbcType=VARCHAR}
+    where id_card_info_id = #{idCardInfoId,jdbcType=BIGINT}
+  </update>
+</mapper>

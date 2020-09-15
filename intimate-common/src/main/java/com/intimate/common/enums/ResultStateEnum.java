@@ -50,7 +50,11 @@ public enum ResultStateEnum {
     // 数据库查询失败
     SQL_SELECT_FAILED(221,"SQL select failed!"),
     // token 更新成功
-    TOKEN_SUCCESSFULLY(222,"Update token successfully!")
+    TOKEN_SUCCESSFULLY(222,"Update token successfully!"),
+    // 数据库修改成功
+    SQL_UPDATE_SUCCESSFULLY(223,"Update SQL successfully!"),
+    // 数据库修改失败
+    SQL_UPDATE_FAILED(224,"Update SQL failed!")
     ;
 
     public static final char[] JWT_SECRET = "hydrogen_honey".toCharArray();

@@ -20,12 +20,14 @@
             <groupId>com.intimate</groupId>
             <artifactId>intimate-pojo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <!-- 导入common -->
         <dependency>
             <groupId>com.intimate</groupId>
             <artifactId>intimate-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
 
