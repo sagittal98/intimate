@@ -159,6 +159,28 @@
       <scope>compile</scope>
     </dependency>
 
+
+    <!-- 缓存 -->
+    <!-- Redis客户端：Jedis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+    <!-- Spring整合redis -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.8.4.RELEASE</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+<!--        有了slf4j  log4j就不生效 我这使用的log4j-->
+      </exclusions>
+    </dependency>
+
   </dependencies>
 
 </project>
