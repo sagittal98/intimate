@@ -4,6 +4,7 @@ import com.alibaba.druid.filter.AutoLoad;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.intimate.common.annotation.Log;
 import com.intimate.common.model.*;
+import com.intimate.common.redis.RedisUtil;
 import com.intimate.common.sms.ISendMessages;
 import com.intimate.common.sms.impl.SendMessages;
 import com.intimate.common.token.JwtUtils;
@@ -13,6 +14,7 @@ import com.intimate.register.service.IRegisterService;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -29,14 +31,17 @@ public class RegisterServiceImpl implements IRegisterService {
 
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper userMapper = null;
+
+    @Autowired
+    private RedisUtil redisUtil = null;
 
     /**
      * 手机号码注册
      * @param smsInfoModel  用户注册信息
      * @return 返回参数
      */
-    @Log(name = "phoneRegister")
+    @Override
     public Result<String> phoneRegister(SMSInfoModel smsInfoModel) {
         logger.info("【日志提醒】进入用户注册逻辑!");
         // 2. 短信验证码是否验证成功
@@ -100,7 +105,7 @@ public class RegisterServiceImpl implements IRegisterService {
     /**
      * 发送短信验证码
      */
-    @Log(name = "sendPhoneVerify")
+    @Override
     public Result<SMSInfoModel> sendPhoneVerify(SMSInfoModel smsInfoModel) {
         logger.info("【日志提醒】进入发送短信验证码逻辑！");
         // 短信接口使用
@@ -128,6 +133,7 @@ public class RegisterServiceImpl implements IRegisterService {
      * @param weChatAuthorizationModel  参数 WeChatAuthorization
      * @return  结果 String
      */
+
     @Override
     public Result<String> weChatAuthorization(WeChatAuthorizationModel weChatAuthorizationModel) {
         // todo  微信授权逻辑实现
@@ -148,7 +154,8 @@ public class RegisterServiceImpl implements IRegisterService {
     /**
      * 验证手机号码是否存在
      */
-    @Log(name = "phoneIsExist")
+    @Cacheable(value = "phone" ,key = "'phoneNumber'")
+    @Override
     public Result<SMSInfoModel> phoneIsExist(String phoneNumber){
         logger.info("【日志提醒】进入手机号检测逻辑！");
         SMSInfoModel smsInfoModel = new SMSInfoModel();
@@ -174,5 +181,7 @@ public class RegisterServiceImpl implements IRegisterService {
             return Result.success(smsInfoModel,212);
         }
     }
+
+
 
 }

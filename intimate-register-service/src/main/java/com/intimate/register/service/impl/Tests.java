@@ -3,12 +3,15 @@ package com.intimate.register.service.impl;
 
 import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
+import com.intimate.common.redis.RedisUtil;
 import com.intimate.register.service.IRegisterService;
 
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,16 +20,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 // 告诉junit spring配置文件
-@ContextConfiguration({"classpath*:spring/spring-*.xml"})
+@ContextConfiguration({"classpath*:spring/spring-*.xml","classpath:spring/spring-redis.xml"})
 public class Tests {
 
     @Autowired
-    private IRegisterService registerService;
+    private IRegisterService registerService = null;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Test
     public void test1(){
-        Result<SMSInfoModel> smsInfoModelResult = registerService.phoneIsExist("17364831501");
-        System.out.println(smsInfoModelResult.toString());
+        boolean set = redisUtil.set("name", "sagittal");
+        System.out.println(set);
+    }
+
+    @Test
+    public void test2(){
+
+        Object name = redisUtil.get("name");
+        System.out.println(name);
+
+
     }
 
 

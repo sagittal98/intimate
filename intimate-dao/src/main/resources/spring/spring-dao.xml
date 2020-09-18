@@ -8,9 +8,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
+    <!-- 扫描使用注解的类型 -->
+    <context:component-scan base-package="com.intimate.common.redis"/>
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
-    <context:property-placeholder location="classpath:properties/jdbc.properties" />
+    <context:property-placeholder location="classpath:properties/*.properties" />
 
 
 
@@ -107,4 +110,5 @@
     </tx:advice>
 
     <import resource="classpath*:spring/spring-aop.xml"/>
+    <import resource="spring-redis.xml"/>
 </beans>
