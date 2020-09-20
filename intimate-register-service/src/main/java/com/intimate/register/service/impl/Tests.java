@@ -3,7 +3,6 @@ package com.intimate.register.service.impl;
 
 import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
-import com.intimate.common.redis.RedisUtil;
 import com.intimate.register.service.IRegisterService;
 
 
@@ -20,31 +19,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 // 告诉junit spring配置文件
-@ContextConfiguration({"classpath*:spring/spring-*.xml","classpath:spring/spring-redis.xml"})
+@ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class Tests {
 
     @Autowired
-    private IRegisterService registerService = null;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private RedisUtil redisUtil;
+    private IRegisterService registerService;
 
     @Test
     public void test1(){
-        boolean set = redisUtil.set("name", "sagittal");
-        System.out.println(set);
+        Result<SMSInfoModel> smsInfoModelResult = registerService.phoneIsExist("17364831501");
+        System.out.println(smsInfoModelResult);
     }
 
     @Test
     public void test2(){
 
-        Object name = redisUtil.get("name");
-        System.out.println(name);
-
-
     }
-
-
 }

@@ -9,14 +9,100 @@
         http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-    <!-- 扫描使用注解的类型 -->
-    <context:component-scan base-package="com.intimate.common.redis"/>
+<!--    TODO  因redis配置不对头  所以暂时放入dao中-->
+<!--    redis配置  -->
+
+    <!-- redis连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="30" />
+        <!-- 最大空闲连接数 -->
+        <property name="maxIdle" value="10" />
+        <!-- 每次释放连接的最大数目 -->
+        <property name="numTestsPerEvictionRun"  value="1024" />
+        <!-- 释放连接的扫描间隔（毫秒） -->
+        <property name="timeBetweenEvictionRunsMillis" value="30000" />
+        <!-- 连接最小空闲时间 -->
+        <property name="minEvictableIdleTimeMillis" value="1800000" />
+        <!-- 连接空闲多久后释放, 当空闲时间>该值 且 空闲连接>最大空闲连接数 时直接释放 -->
+        <property name="softMinEvictableIdleTimeMillis" value="10000" />
+        <!-- 获取连接时的最大等待毫秒数,小于零:阻塞不确定的时间,默认-1 -->
+        <property name="maxWaitMillis" value="1500" />
+        <!-- 在获取连接的时候检查有效性, 默认false -->
+        <property name="testOnBorrow" value="true" />
+        <!-- 在空闲时检查有效性, 默认false -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true -->
+        <property name="blockWhenExhausted" value="false"/>
+    </bean>
+
+    <!-- Redis连接工厂     -->
+    <bean id="redis4CacheConnectionFactory" class="com.intimate.common.redis.MyJedisConnectionFactory">
+<!--集群连接池-->
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+<!--        集群节点-->
+        <constructor-arg name="jedisClusterNode">
+            <set>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.45.210"/>
+                    <constructor-arg name="port" value="7001"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.8.199"/>
+                    <constructor-arg name="port" value="7002"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.70.76"/>
+                    <constructor-arg name="port" value="7003"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.45.210"/>
+                    <constructor-arg name="port" value="7004"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.8.199"/>
+                    <constructor-arg name="port" value="7005"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="139.155.70.76"/>
+                    <constructor-arg name="port" value="7006"/>
+                </bean>
+            </set>
+
+        </constructor-arg>
+<!--       集群链接超时 -->
+        <constructor-arg name="connectionTimeout" value="3000"/>
+<!--        集群最大次数-->
+        <constructor-arg name="maxAttempts" value="2" />
+<!--        集群链接密码-->
+        <constructor-arg name="password" value="hydrogenhoney@roo" />
+<!--        集群读取数据超时设置-->
+        <constructor-arg name="soTimeout" value="2000" />
+    </bean>
+
+
+    <!--序列化为字符串-->
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <!--序列化为字节码-->
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+    <!--序列化为json-->
+    <bean id="genericJackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+
+    <!-- 集群Resis使用模板 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+
+<!--        <property name="connectionFactory" ref="redis4CacheConnectionFactory" />-->
+
+        <property name="keySerializer" ref="stringRedisSerializer" />
+        <property name="hashKeySerializer" ref="stringRedisSerializer" />
+        <property name="valueSerializer" ref="stringRedisSerializer" />
+        <property name="hashValueSerializer" ref="stringRedisSerializer" />
+    </bean>
+
+
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
-    <context:property-placeholder location="classpath:properties/*.properties" />
-
-
-
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:properties/jdbc.properties" />
     <!-- 2. 阿里 druid 数据库连接池 -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="username" value="${jdbc.username}"/>
@@ -108,7 +194,5 @@
             <tx:method name="check*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
     </tx:advice>
-
     <import resource="classpath*:spring/spring-aop.xml"/>
-    <import resource="spring-redis.xml"/>
 </beans>

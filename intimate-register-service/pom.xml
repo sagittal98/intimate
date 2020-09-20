@@ -28,16 +28,25 @@
       <artifactId>intimate-register-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.intimate</groupId>
+      <artifactId>intimate-common</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
     </dependency>
+
+
+
 
   </dependencies>
 

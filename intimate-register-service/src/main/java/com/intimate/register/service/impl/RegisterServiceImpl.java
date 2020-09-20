@@ -4,7 +4,6 @@ import com.alibaba.druid.filter.AutoLoad;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.intimate.common.annotation.Log;
 import com.intimate.common.model.*;
-import com.intimate.common.redis.RedisUtil;
 import com.intimate.common.sms.ISendMessages;
 import com.intimate.common.sms.impl.SendMessages;
 import com.intimate.common.token.JwtUtils;
@@ -15,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -31,10 +31,12 @@ public class RegisterServiceImpl implements IRegisterService {
 
 
     @Autowired
-    private UserMapper userMapper = null;
+    private UserMapper userMapper;
 
     @Autowired
-    private RedisUtil redisUtil = null;
+    private RedisTemplate<String, Object> redisTemplate;
+
+
 
     /**
      * 手机号码注册
@@ -137,6 +139,8 @@ public class RegisterServiceImpl implements IRegisterService {
     @Override
     public Result<String> weChatAuthorization(WeChatAuthorizationModel weChatAuthorizationModel) {
         // todo  微信授权逻辑实现
+
+
         return null;
     }
 
@@ -157,6 +161,8 @@ public class RegisterServiceImpl implements IRegisterService {
     @Cacheable(value = "phone" ,key = "'phoneNumber'")
     @Override
     public Result<SMSInfoModel> phoneIsExist(String phoneNumber){
+        Object name = redisTemplate.boundValueOps("name").get();
+        System.out.println(name);
         logger.info("【日志提醒】进入手机号检测逻辑！");
         SMSInfoModel smsInfoModel = new SMSInfoModel();
         smsInfoModel.setPhone(phoneNumber);
