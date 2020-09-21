@@ -1,6 +1,8 @@
 package com.intimate.dao;
 
 
+import com.intimate.common.redis.IRedisTemplate;
+import com.intimate.common.redis.impl.RedisTemplateImpl;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +26,19 @@ import java.util.Objects;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-dao.xml"})
 public class Tests {
-
+//
+//    @Autowired
+//    private RedisTemplate<String,Objects> redisTemplate;
     @Autowired
-    private RedisTemplate<String,Objects> redisTemplate;
+    private IRedisTemplate<String,String> redisTemplate;
 
 
     @Test
     public void test(){
 //        List<Province> provinceList = provinceMapper.selectByExample(null);
 //        System.out.println(Arrays.toString(provinceList.toArray()));
-//
-//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//        jedisConnectionFactory.afterPropertiesSet();
-//
-//        redisTemplate.afterPropertiesSet();
 
-
-        RedisConnectionFactory connectionFactory = redisTemplate.getConnectionFactory();
-        assert connectionFactory != null;
-        System.out.println(connectionFactory.getClusterConnection().getClientList());
-
-        Object name = redisTemplate.boundValueOps("sagittal").get();
+        String name = redisTemplate.boundValueOperations("name").get();
         System.out.println(name);
 
     }

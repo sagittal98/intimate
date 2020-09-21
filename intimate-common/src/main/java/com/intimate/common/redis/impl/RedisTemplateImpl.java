@@ -4,26 +4,23 @@ import com.intimate.common.redis.IRedisTemplate;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.JedisPoolConfig;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class RedisTemplateImpl implements IRedisTemplate {
+
+@Service
+public class RedisTemplateImpl<K,V> extends RedisTemplate<K,V> implements IRedisTemplate<K,V>{
 
     private JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();;
     private RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
-    private RedisTemplate<Object, Object> template = new RedisTemplate<>();
-
 
 
     //    连接池配置
@@ -63,43 +60,63 @@ public class RedisTemplateImpl implements IRedisTemplate {
         jedisConnectionFactory.afterPropertiesSet();
         return jedisConnectionFactory;
     }
-//    创建模板
-    private RedisTemplate<Object, Object> redisTemplate(){
-        template.setConnectionFactory(connectionFactory());
-        template.afterPropertiesSet();
-//        设置序列化
+
+//  工厂
+    private void factory(){
+        setConnectionFactory(connectionFactory());
+        afterPropertiesSet();
         //        序列化为字符串
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        template.setKeySerializer(stringRedisSerializer);
-        template.setStringSerializer(stringRedisSerializer);
-        template.setDefaultSerializer(stringRedisSerializer);
-        template.setHashKeySerializer(stringRedisSerializer);
-        template.setValueSerializer(stringRedisSerializer);
-        return template;
+        setKeySerializer(stringRedisSerializer);
+        setStringSerializer(stringRedisSerializer);
+        setDefaultSerializer(stringRedisSerializer);
+        setHashKeySerializer(stringRedisSerializer);
+        setValueSerializer(stringRedisSerializer);
+    }
+
+
+
+
+
+    @Override
+    public BoundZSetOperations<K, V> boundZSetOperations(K key) {
+        factory();
+        return super.boundZSetOps(key);
     }
 
     @Override
-    public boolean delete(@NotBlank(message = "key值不能为空！") String key) {
-        return redisTemplate().delete(key);
+    public BoundValueOperations<K, V> boundValueOperations(K key) {
+        factory();
+        return super.boundValueOps(key);
     }
 
     @Override
-    public boolean delete(@NotEmpty(message = "keys集合不能为空！") String... keys) {
-        return redisTemplate().delete(keys);
+    public BoundGeoOperations<K, V> boundGeoOperations(K key) {
+        factory();
+        return super.boundGeoOps(key);
     }
 
     @Override
-    public boolean expire(@NotBlank(message = "key值不能为空！") String key, @NotNull(message = "time不为空！")long time) {
-        return redisTemplate().expire(key, time, TimeUnit.MINUTES);
+    public <HK, HV> BoundHashOperations<K, HK, HV> boundHashOperations(K key) {
+        factory();
+        return super.boundHashOps(key);
     }
 
     @Override
-    public long getExpire(@NotBlank(message = "key值不能为空！") String key) {
-        return redisTemplate().getExpire(key);
+    public BoundListOperations<K, V> boundListOperations(K key) {
+        factory();
+        return super.boundListOps(key);
     }
 
     @Override
-    public boolean hasKey(@NotBlank(message = "key值不能为空！") String key) {
-        return redisTemplate().hasKey(key);
+    public BoundSetOperations<K, V> boundSetOperations(K key) {
+        factory();
+        return super.boundSetOps(key);
+    }
+
+    @Override
+    public <HK, HV> BoundStreamOperations<K, HK, HV> boundStreamOperations(K key) {
+        factory();
+        return boundStreamOps(key);
     }
 }
