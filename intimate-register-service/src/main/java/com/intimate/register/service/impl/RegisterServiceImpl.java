@@ -1,9 +1,9 @@
 package com.intimate.register.service.impl;
 
-import com.alibaba.druid.filter.AutoLoad;
 import com.alibaba.dubbo.config.annotation.Service;
-import com.intimate.common.annotation.Log;
 import com.intimate.common.model.*;
+import com.intimate.common.redis.IRedisTemplate;
+import com.intimate.common.redis.impl.RedisTemplateImpl;
 import com.intimate.common.sms.ISendMessages;
 import com.intimate.common.sms.impl.SendMessages;
 import com.intimate.common.token.JwtUtils;
@@ -11,31 +11,23 @@ import com.intimate.dao.UserMapper;
 import com.intimate.pojo.User;
 import com.intimate.register.service.IRegisterService;
 import org.apache.log4j.Logger;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
 
 import java.util.Date;
 import java.util.Random;
-
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class RegisterServiceImpl implements IRegisterService {
 
     // 日志
     private Logger logger = Logger.getLogger(getClass());
-
-
+    //    redis缓存
+    private IRedisTemplate<String,Object> redisTemplate = new RedisTemplateImpl<>();
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
 
 
     /**
@@ -123,6 +115,9 @@ public class RegisterServiceImpl implements IRegisterService {
         logger.info("【日志提醒】验证码发送状态： " + isSuccess);
         if (isSuccess){
             logger.info("【日志提醒】成功发送，退出发送逻辑，返回结果！");
+            logger.info("【日志提醒】缓存验证码！过期时间"+ smsInfoModel.getMinute() +"分钟！");
+            redisTemplate.boundValueOperations(smsInfoModel.getPassword()).set(smsInfoModel.getCode(),Long.parseLong(smsInfoModel.getMinute()), TimeUnit.MINUTES);
+            logger.info("【日志提醒】缓存成功！删除验证码");
             return Result.success(smsInfoModel,213);
         }else {
             logger.info("【日志提醒】失败发送，退出发送逻辑，返回结果！");
@@ -158,11 +153,8 @@ public class RegisterServiceImpl implements IRegisterService {
     /**
      * 验证手机号码是否存在
      */
-    @Cacheable(value = "phone" ,key = "'phoneNumber'")
     @Override
     public Result<SMSInfoModel> phoneIsExist(String phoneNumber){
-        Object name = redisTemplate.boundValueOps("name").get();
-        System.out.println(name);
         logger.info("【日志提醒】进入手机号检测逻辑！");
         SMSInfoModel smsInfoModel = new SMSInfoModel();
         smsInfoModel.setPhone(phoneNumber);
@@ -187,7 +179,4 @@ public class RegisterServiceImpl implements IRegisterService {
             return Result.success(smsInfoModel,212);
         }
     }
-
-
-
 }

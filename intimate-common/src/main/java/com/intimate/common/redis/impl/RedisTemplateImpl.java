@@ -7,21 +7,17 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
 public class RedisTemplateImpl<K,V> extends RedisTemplate<K,V> implements IRedisTemplate<K,V>{
 
     private JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();;
     private RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
-
 
     //    连接池配置
     private JedisPoolConfig poolConfig(){

@@ -10,10 +10,65 @@
 
 
 
-    <context:component-scan base-package="com.intimate.common.redis"/>
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder ignore-unresolvable="true" location="classpath:properties/jdbc.properties" />
+
+<!--    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+<!--        <property name="minIdle" value="1" />-->
+<!--        <property name="testOnReturn" value="true" />-->
+<!--        <property name="testWhileIdle" value="true" />-->
+<!--        <property name="maxIdle" value="${shardredis.maxIdle}" />-->
+<!--        <property name="maxTotal" value="${shardredis.maxActive}" />-->
+<!--        <property name="maxWaitMillis" value="${shardredis.maxWait}" />-->
+<!--        <property name="testOnBorrow" value="${shardredis.testOnBorrow}" />-->
+<!--    </bean>-->
+
+<!--    <bean id="redisClusterConfig"-->
+<!--          class="org.springframework.data.redis.connection.RedisClusterConfiguration">-->
+<!--        <property name="maxRedirects" value="3"/>-->
+<!--        <property name="clusterNodes">-->
+<!--            <set>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host1}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port1}"/>-->
+<!--                </bean>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host2}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port2}"/>-->
+<!--                </bean>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host3}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port3}"/>-->
+<!--                </bean>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host4}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port4}"/>-->
+<!--                </bean>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host5}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port5}"/>-->
+<!--                </bean>-->
+<!--                <bean class="org.springframework.data.redis.connection.RedisNode">-->
+<!--                    <constructor-arg name="host" value="${redis.host6}"/>-->
+<!--                    <constructor-arg name="port" value="${redis.port6}"/>-->
+<!--                </bean>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--        <property name="password" value="hydrogenhoney@root"/>-->
+<!--    </bean>-->
+
+
+<!--    <bean id="jedisConnectionFactory"-->
+<!--          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">-->
+<!--        <constructor-arg name="clusterConfig" ref="redisClusterConfig" />-->
+<!--        <constructor-arg name="poolConfig" ref="poolConfig"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+<!--        <constructor-arg name="connectionFactory" ref="jedisConnectionFactory"/>-->
+<!--    </bean>-->
+
     <!-- 2. 阿里 druid 数据库连接池 -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="username" value="${jdbc.username}"/>
