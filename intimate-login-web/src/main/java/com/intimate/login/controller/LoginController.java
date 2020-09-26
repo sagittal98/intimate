@@ -99,17 +99,7 @@ public class LoginController {
         logger.info("【日志提醒】获取checkResult = "  +checkResult);
         String sub = String.valueOf(checkResult.getClaims().get("sub"));
         logger.info("【日志提醒】获取sub = " + sub);
-        // 有效期限6个月
-        long ttlMillis = 6 * 30 * 24 * 60 * 60 * 1000L;
-        // 唯一标识
-        String jti = "hydrogen_honey" ;
-        // 生成token
-        logger.info("【日志提醒】开始写入token");
-        String token = JwtUtils.createJWT(jti, sub, ttlMillis);
-        logger.info("【日志提醒】token写入成功！token = " + token);
-        // 4. 返回结果
-        logger.info("【日志提醒】退出注册逻辑，返回结果！");
-        return Result.success(token,216);
+        return loginService.tokenVerify(sub);
     }
 
 }

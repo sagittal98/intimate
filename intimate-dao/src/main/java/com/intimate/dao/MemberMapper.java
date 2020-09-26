@@ -16,6 +16,8 @@ public interface MemberMapper {
     int insert(Member record);
 
     int insertSelective(Member record);
+    // 批量插入数据
+    int insertMemberInfos(List<Member> memberList);
 
     List<Member> selectByExample(MemberExample example);
 

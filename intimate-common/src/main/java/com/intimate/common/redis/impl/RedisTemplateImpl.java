@@ -115,4 +115,16 @@ public class RedisTemplateImpl<K,V> extends RedisTemplate<K,V> implements IRedis
         factory();
         return boundStreamOps(key);
     }
+
+    @Override
+    public Boolean hasKey(K key) {
+        factory();
+        return super.hasKey(key);
+    }
+
+    @Override
+    public Boolean delete(K key) {
+        factory();
+        return super.delete(key);
+    }
 }

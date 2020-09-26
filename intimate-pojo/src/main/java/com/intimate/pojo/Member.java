@@ -1,16 +1,27 @@
 package com.intimate.pojo;
 
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Member implements Serializable {
+    // 成员id
     private Long memberId;
-
+    // 组织id
     private Long groupId;
-
+    // 用户id
     private Long userId;
-
+    // 用户添加时间
     private Date userCreateData;
+
+    public Member() {
+    }
+
+    public Member(User user, Long groupId, Date userCreateData) {
+        this.groupId = groupId;
+        this.userId = user.getUserId();
+        this.userCreateData = userCreateData;
+    }
 
     private static final long serialVersionUID = 1L;
 

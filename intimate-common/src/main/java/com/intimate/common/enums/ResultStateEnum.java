@@ -54,7 +54,30 @@ public enum ResultStateEnum {
     // 数据库修改成功
     SQL_UPDATE_SUCCESSFULLY(223,"Update SQL successfully!"),
     // 数据库修改失败
-    SQL_UPDATE_FAILED(224,"Update SQL failed!")
+    SQL_UPDATE_FAILED(224,"Update SQL failed!"),
+    // 手机号码不正确
+    PHONE_IS_NOT_COMPLETE(225,"Phone is not complete!"),
+    // 邮箱不正确
+    EMAIL_IS_NOT_COMPLETE(226,"Email is not complete!"),
+    // redis缓存失败
+    REDIS_SAVE_FAILED(227,"Redis save failed!"),
+    // redis缓存key值为空
+    REDIS_SAVE_KEY_IS_NULL(228,"Redis save key is null!"),
+    // 微信授权获取openid失败
+    WE_CHAT_AUTHORITY_OPENID_FAILED(229,"We chat authority is no successfully!"),
+    // 微信授权获取用户信息失败
+    WE_CHAT_AUTHORITY_USER_FAILED(230,"We chat authority get user info is failed!"),
+    // 微信授权信息成功
+    WE_CHAT_AUTHORITY_USER_SUCCESSFULLY(231,"We chat authority get user info is successfully!"),
+    // 操作者权限不够
+    OPERATOR_AUTHORITY_IS_NOT_ENOUGH(232," Operator's authority is not enough!"),
+    // 权限提升成功
+    PRIVILEGE_PROMOTION_SUCCEEDED(233,"Privilege promotion succeeded!")
+
+
+
+
+
     ;
 
     public static final char[] JWT_SECRET = "hydrogen_honey".toCharArray();

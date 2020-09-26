@@ -135,6 +135,19 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="insertMemberInfos" parameterType="java.util.List">
+    insert into member(member_id, group_id, user_id,
+      user_create_data)
+      values
+      <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+         null,
+        #{item.groupId,jdbcType=BIGINT},
+        #{item.userId,jdbcType=BIGINT},
+        #{item.userCreateData,jdbcType=TIMESTAMP}
+      </foreach>
+  </insert>
+
   <select id="countByExample" parameterType="com.intimate.pojo.MemberExample" resultType="java.lang.Integer" >
     select count(*) from member
     <if test="_parameter != null" >

@@ -1,9 +1,13 @@
 package com.intimate.login.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.intimate.common.enums.RedisKeySignEnum;
 import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
 import com.intimate.common.model.UserInfo;
+import com.intimate.common.redis.IRedisTemplate;
+import com.intimate.common.redis.impl.RedisTemplateImpl;
+import com.intimate.common.regular.RegUtils;
 import com.intimate.common.sms.ISendMessages;
 import com.intimate.common.sms.impl.SendMessages;
 import com.intimate.common.token.JwtUtils;
@@ -20,11 +24,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class LoginServiceImpl implements ILoginService {
     private final Logger logger = Logger.getLogger(getClass());
-
+    //    redis缓存
+    private IRedisTemplate<String,Object> redisTemplate = new RedisTemplateImpl<>();
 
     @Autowired
     private UserMapper userMapper;
@@ -33,8 +39,16 @@ public class LoginServiceImpl implements ILoginService {
     public Result<Boolean> phoneIsExist(String phoneNumber) {
         logger.info("【日志提醒】进入手机号检测逻辑！");
         logger.info("【日志提醒】获取手机号：" + phoneNumber);
+        // 手机号码检查
+        if (!RegUtils.checkPhone(phoneNumber)){
+            return Result.error(225);
+        }
         // 1. 通过手机号码查询  返回结果
         logger.info("【日志提醒】开始数据库查询！");
+        // 先从缓存中查找是否存在！ RedisKeySignEnum.signInfo(1001) + phoneNumber
+        if (redisTemplate.hasKey(RedisKeySignEnum.signInfo(1001) + phoneNumber)){
+            return Result.success(true,218);
+        }
         int count = userMapper.checkPhone(phoneNumber);
         logger.info("【日志提醒】查询结果：" + count);
         if (count != 0 ){
@@ -51,6 +65,10 @@ public class LoginServiceImpl implements ILoginService {
     @Override
     public Result<SMSInfoModel> sendPhoneVerify(SMSInfoModel smsInfoModel) {
         logger.info("【日志提醒】进入发送短信验证码逻辑！");
+        // 手机号码检查
+        if (!RegUtils.checkPhone(smsInfoModel.getPhone())){
+            return Result.error(225);
+        }
         // 短信接口使用
         ISendMessages sendMessages = new SendMessages();
         // 生成随机验证码  4位
@@ -64,6 +82,17 @@ public class LoginServiceImpl implements ILoginService {
         logger.info("【日志提醒】验证码发送状态： " + isSuccess);
         if (isSuccess){
             logger.info("【日志提醒】成功发送，退出发送逻辑，返回结果！");
+            try {
+                if (!smsInfoModel.getPhone().isEmpty()){
+                    redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1001) +smsInfoModel.getPhone()).set(smsInfoModel.getCode(),Long.parseLong(smsInfoModel.getMinute()), TimeUnit.MINUTES);
+                }else {
+                    Result.error(228);
+                }
+                logger.info("【日志提醒】缓存成功！");
+            }catch (Exception e){
+                logger.info("【日志提醒】缓存失败！");
+                Result.error(227);
+            }
             return Result.success(smsInfoModel,213);
         }else {
             logger.info("【日志提醒】失败发送，退出发送逻辑，返回结果！");
@@ -74,6 +103,10 @@ public class LoginServiceImpl implements ILoginService {
     @Override
     public Result<String> login(SMSInfoModel smsInfoModel) {
         logger.info("【日志提醒】进入登录逻辑！");
+        // 手机号码检查
+        if (!RegUtils.checkPhone(smsInfoModel.getPhone())){
+            return Result.error(225);
+        }
         // 2. 短信验证码是否验证成功
         if (smsInfoModel.isVerifyCode()){  // 已经成功验证
             logger.info("【日志提醒】已确认验证码正确通过!");
@@ -109,13 +142,23 @@ public class LoginServiceImpl implements ILoginService {
 
     /**
      * 生成新的token
-     * @param token 传入token验证
+     * @param sub 传入token验证
      * @return
      */
     @Override
-    public Result<String> tokenVerify(String token) {
-        return null;
+    public Result<String> tokenVerify(String sub) {
+        logger.info("【日志提醒】开始生成新的token");
+        // 有效期限6个月
+        long ttlMillis = 6 * 30 * 24 * 60 * 60 * 1000L;
+        // 唯一标识
+        String jti = "hydrogen_honey" ;
+        // 生成token
+        logger.info("【日志提醒】开始写入token");
+        String token = JwtUtils.createJWT(jti, sub, ttlMillis);
+        logger.info("【日志提醒】token写入成功！token = " + token);
+        // 4. 返回结果
+        logger.info("【日志提醒】退出登录逻辑，返回结果！");
+        return  Result.success(token,216);
     }
-
 
 }

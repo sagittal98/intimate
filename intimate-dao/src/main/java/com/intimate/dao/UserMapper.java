@@ -17,7 +17,12 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
+    // 批量插入用户信息
+    void insertUserInfos(List<User> userList);
+
     List<User> selectByExample(UserExample example);
+    // 通过手机号码查询用户信息
+    List<User> selectByPhones(List<User> userList);
 
     User selectByPrimaryKey(Long userId);
 

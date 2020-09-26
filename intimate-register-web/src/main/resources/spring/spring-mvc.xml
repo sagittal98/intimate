@@ -25,13 +25,13 @@
 	</mvc:annotation-driven>
 
 	<!-- 引用dubbo 服务 -->
-	<dubbo:application name="intimate-register-web" />
+	<dubbo:application name="intimate-register-web2" />
 	<dubbo:registry address="zookeeper://180.76.106.21:2181"/>
 	<dubbo:annotation package="com.intimate.register.controller" />
 
 
-	<!-- 时间设置超过1秒不重试连接！ -->
-	<dubbo:reference interface="com.intimate.register.service.IRegisterService" id="iRegisterService" retries="0" timeout="1000"/>
+	<!-- 时间设置超过5秒不重试连接！ -->
+	<dubbo:reference interface="com.intimate.register.service.IRegisterService" id="iRegisterService" retries="0" timeout="5000"/>
 
 
 	<!--指明springmvc拦截器位置-->

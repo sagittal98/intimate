@@ -104,11 +104,21 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
-  <select id="selectByPhoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="selectByPhones" resultMap="java.util.List" parameterType="java.util.List">
     select
     <include refid="Base_Column_List"/>
     from user
     where phone=#{phone,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPhoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    where phone in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+      #{item.phone,jdbcType=VARCHAR}
+    </foreach>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -244,6 +254,72 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="insertUserInfos" parameterType="java.util.List">
+    insert into user (user_id, openid, nick_name,
+    birth, age, sex,
+    phone, password, native_place_code,
+    authority_level, qq, avatar_url,
+    is_phone_check, is_qq_check, is_weixin_check,
+    register_date, last_login_time)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      <trim prefix="(" suffix=")" >
+        <if test="item.userId != null" >
+          #{item.userId,jdbcType=BIGINT},
+        </if>
+        <if test="item.openid != null" >
+          #{item.openid,jdbcType=VARCHAR},
+        </if>
+        <if test="item.nickName != null" >
+          #{item.nickName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.birth != null" >
+          #{item.birth,jdbcType=VARCHAR},
+        </if>
+        <if test="item.age != null" >
+          #{item.age,jdbcType=SMALLINT},
+        </if>
+        <if test="item.sex != null" >
+          #{item.sex,jdbcType=SMALLINT},
+        </if>
+        <if test="item.phone != null" >
+          #{item.phone,jdbcType=VARCHAR},
+        </if>
+        <if test="item.password != null" >
+          #{item.password,jdbcType=VARCHAR},
+        </if>
+        <if test="item.nativePlaceCode != null" >
+          #{item.nativePlaceCode,jdbcType=SMALLINT},
+        </if>
+        <if test="item.authorityLevel != null" >
+          #{item.authorityLevel,jdbcType=VARCHAR},
+        </if>
+        <if test="item.qq != null" >
+          #{item.qq,jdbcType=INTEGER},
+        </if>
+        <if test="item.avatarUrl != null" >
+          #{item.avatarUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.isPhoneCheck != null" >
+          #{item.isPhoneCheck,jdbcType=BIT},
+        </if>
+        <if test="item.isQqCheck != null" >
+          #{item.isQqCheck,jdbcType=BIT},
+        </if>
+        <if test="item.isWeixinCheck != null" >
+          #{item.isWeixinCheck,jdbcType=BIT},
+        </if>
+        <if test="item.registerDate != null" >
+          #{item.registerDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.lastLoginTime != null" >
+          #{item.lastLoginTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
   <select id="countByExample" parameterType="com.intimate.pojo.UserExample" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >

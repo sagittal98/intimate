@@ -24,8 +24,29 @@
   <packaging>war</packaging>
 
   <name>intimate-user-web</name>
-  <groupId>com.intimate</groupId>
   <artifactId>intimate-user-web</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
+  <parent>
+    <artifactId>intimate-parent</artifactId>
+    <groupId>com.intimate</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../intimate-parent/pom.xml</relativePath>
+  </parent>
+
+  <dependencies>
+    <!--    服务方 -->
+    <dependency>
+      <groupId>com.intimate</groupId>
+      <artifactId>intimate-user-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- servlet api  controller 接收前端参数使用 -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
 
 </project>

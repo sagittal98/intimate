@@ -1,8 +1,13 @@
 package com.intimate.register.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.intimate.common.authorization.IWeChatAuthorization;
+import com.intimate.common.authorization.impl.WeChatAuthorization;
 import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
+import com.intimate.common.model.WeChatAuthorizationModel;
 import com.intimate.register.service.IRegisterService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +35,9 @@ public class RegisterController {
     private IRegisterService registerService;
 
     private SMSInfoModel smsInfoModel = new SMSInfoModel();
+
+
+
 
     /**
      *  检查手机号
@@ -97,8 +105,12 @@ public class RegisterController {
     @RequestMapping("/wechatAuthorization")
     @ResponseBody
     public Result<String> wechatAuthorization(HttpServletRequest req){
-        // todo  微信授权接口
-        return null;
+        logger.info("【日志提醒】进入wechatAuthorization请求！");
+        String js_code = req.getParameter("js_code");
+        String encryptedData = req.getParameter("encryptedData");
+        String iv = req.getParameter("iv");
+        Integer userId = Integer.valueOf(req.getParameter("userId"));
+        return registerService.weChatAuthorization(js_code,encryptedData,iv,userId);
     }
 
     @RequestMapping("/qqAuthorization")

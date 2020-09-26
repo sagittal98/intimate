@@ -15,13 +15,15 @@ public interface IUserService {
      * 5. 查找群成员  通过手机号码查询
      * 6. 查找用户
      */
+
+
     /**
      *  修改账户信息
      *    修改返回成功或失败，成功则前端自行修改，失败则失败
      * @param user  传入用户需要修改的数据
      * @return 返回结果成功或失败
      */
-    Result<Boolean> updateUserInfo(User user);
+    Result<Boolean> updateUserInfo(String operatorAuthority,User user);
 
 
     /**
@@ -31,14 +33,20 @@ public interface IUserService {
      *
      * @return  返回结果成功与否
      */
-    Result<Boolean> updateUserAuthorization(User user);
+    Result<Boolean> updateUserAuthorization(String operatorAuthority,User user);
 
     /**
-     * 添加大量用户信息  也可以添加单个用户信息
+     * 添加大量用户信息
      * @param userList  用户信息清单
+     * @param groupId 组织id
+     * @param operatorAuthority 组织者权限
      * @return 返回成功与否
+     * 1. 批量添加组员，首先必须是组织者或者企业者或者是管理员  且有组织群
+     *  2. 先添加到用户数据库
+     *    3. 再添加到缓存
+     *      4. 然后添加到成员数据库
      */
-    Result<Boolean> addALotOfUserInfo(List<User> userList);
+    Result<Boolean> addALotOfUserInfo(List<User> userList,Long groupId,String operatorAuthority);
 
     /**
      * 查询所有群成员

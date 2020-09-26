@@ -21,8 +21,8 @@ public class Interceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         logger.info("【日志提醒】进入request请求前身份验证！");
         logger.info("【日志提醒】获取请求名！");
-        // todo  token验证
 //        获取请求头token
+        // TODO  还需要加强
         String token = httpServletRequest.getHeader("Authorization");
         if(token.equals("logon")){
             return true;

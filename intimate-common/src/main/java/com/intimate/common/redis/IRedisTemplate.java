@@ -14,4 +14,6 @@ public interface IRedisTemplate<K,V>{
     BoundListOperations<K, V> boundListOperations(K key);
     BoundSetOperations<K, V> boundSetOperations(K key);
     <HK, HV> BoundStreamOperations<K, HK, HV> boundStreamOperations(K key);
+    Boolean hasKey(K key);
+    Boolean delete(K key);
 }

@@ -17,6 +17,8 @@ public class CheckResult implements Serializable {
         return success;
     }
 
+
+
     public void setSuccess(boolean success) {
         this.success = success;
     }

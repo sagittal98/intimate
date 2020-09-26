@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -39,6 +41,34 @@ public class User implements Serializable {
     private Date lastLoginTime;
 
     private static final long serialVersionUID = 1L;
+
+    public User() {
+    }
+
+    public User(Long userId,String authorityLevel) {
+        this.userId = userId;
+        this.authorityLevel = authorityLevel;
+    }
+
+    public User(JSONObject objectUserInfo) {
+        this.userId = objectUserInfo.getLong("userId");
+        this.openid = objectUserInfo.getString("openid");
+        this.nickName = objectUserInfo.getString("nickName");
+        this.birth = objectUserInfo.getString("birth");
+        this.age = objectUserInfo.getShort("age");
+        this.sex = objectUserInfo.getShort("sex");
+        this.phone = objectUserInfo.getString("phone");
+        this.password = objectUserInfo.getString("password");
+        this.nativePlaceCode = objectUserInfo.getShort("nativePlaceCode");
+        this.authorityLevel = objectUserInfo.getString("authorityLevel");
+        this.qq = objectUserInfo.getInteger("qq");
+        this.avatarUrl = objectUserInfo.getString("avatarUrl");
+        this.isPhoneCheck = objectUserInfo.getBoolean("isPhoneCheck");
+        this.isQqCheck = objectUserInfo.getBoolean("isQqCheck");
+        this.isWeixinCheck = objectUserInfo.getBoolean("isWeixinCheck");
+        this.registerDate = objectUserInfo.getDate("registerDate");
+        this.lastLoginTime = objectUserInfo.getDate("lastLoginTime");
+    }
 
     public Long getUserId() {
         return userId;

@@ -31,8 +31,8 @@ public interface ILoginService {
 
     /**
      * token 验证
-     * @param token 传入token验证
+     * @param sub 传入token验证
      * @return 返回新的token
      */
-    Result<String> tokenVerify(String token);
+    Result<String> tokenVerify(String sub);
 }

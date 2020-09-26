@@ -18,8 +18,8 @@ public interface IRegisterService {
      Result<SMSInfoModel> phoneIsExist(String phoneNumber);
     // 发送短信验证码
      Result<SMSInfoModel> sendPhoneVerify(SMSInfoModel smsInfoModel);
-    // 通过微信授权
-    Result<String> weChatAuthorization(WeChatAuthorizationModel weChatAuthorizationModel);
+    // 通过微信授权  获取用户信息  并缓存在redis中  更新token
+    Result<String> weChatAuthorization(String js_code,String encryptedData,String iv,Integer userId);
     // 通过QQ授权
     Result<String> QQAuthorization(QQAuthorizationModel qqAuthorizationModel);
 }
