@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Service(version = "0.0.1")
 public class LoginServiceImpl implements ILoginService {
     private final Logger logger = Logger.getLogger(getClass());
     //    redis缓存

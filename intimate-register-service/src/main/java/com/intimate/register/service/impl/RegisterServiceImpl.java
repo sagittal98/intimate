@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Service(version = "0.0.1")
 public class RegisterServiceImpl implements IRegisterService {
 
     // 日志

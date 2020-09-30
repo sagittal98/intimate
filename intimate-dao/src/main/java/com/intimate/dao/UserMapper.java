@@ -26,7 +26,7 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Long userId);
 
-    User selectByPhoneNumber(String phone);
+    User selectByPhoneNumber(@Param("phone") String phone);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

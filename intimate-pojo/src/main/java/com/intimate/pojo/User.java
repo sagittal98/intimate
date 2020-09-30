@@ -3,7 +3,11 @@ package com.intimate.pojo;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static java.util.Locale.ENGLISH;
 
 public class User implements Serializable {
     private Long userId;
@@ -50,24 +54,72 @@ public class User implements Serializable {
         this.authorityLevel = authorityLevel;
     }
 
-    public User(JSONObject objectUserInfo) {
-        this.userId = objectUserInfo.getLong("userId");
-        this.openid = objectUserInfo.getString("openid");
-        this.nickName = objectUserInfo.getString("nickName");
-        this.birth = objectUserInfo.getString("birth");
-        this.age = objectUserInfo.getShort("age");
-        this.sex = objectUserInfo.getShort("sex");
-        this.phone = objectUserInfo.getString("phone");
-        this.password = objectUserInfo.getString("password");
-        this.nativePlaceCode = objectUserInfo.getShort("nativePlaceCode");
-        this.authorityLevel = objectUserInfo.getString("authorityLevel");
-        this.qq = objectUserInfo.getInteger("qq");
-        this.avatarUrl = objectUserInfo.getString("avatarUrl");
-        this.isPhoneCheck = objectUserInfo.getBoolean("isPhoneCheck");
-        this.isQqCheck = objectUserInfo.getBoolean("isQqCheck");
-        this.isWeixinCheck = objectUserInfo.getBoolean("isWeixinCheck");
-        this.registerDate = objectUserInfo.getDate("registerDate");
-        this.lastLoginTime = objectUserInfo.getDate("lastLoginTime");
+    public User(JSONObject userObject) {
+        this.userId = userObject.getLong("userId");
+        this.openid = userObject.getString("openid");
+        this.nickName = userObject.getString("nickName");
+        this.birth = userObject.getString("birth");
+        this.age = userObject.getShort("age");
+        this.sex = userObject.getShort("sex");
+        this.phone = userObject.getString("phone");
+        this.password = userObject.getString("password");
+        this.nativePlaceCode = userObject.getShort("nativePlaceCode");
+        this.authorityLevel = userObject.getString("authorityLevel");
+        this.qq = userObject.getInteger("qq");
+        this.avatarUrl = userObject.getString("avatarUrl");
+        this.isPhoneCheck = userObject.getBoolean("isPhoneCheck");
+        this.isQqCheck = userObject.getBoolean("isQqCheck");
+        this.isWeixinCheck = userObject.getBoolean("isWeixinCheck");
+
+        Object registerDate = userObject.get("registerDate");
+        Object lastLoginTime = userObject.get("lastLoginTime");
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",ENGLISH);
+        try {
+            this.registerDate = df.parse(registerDate.toString());
+            this.lastLoginTime = df.parse(lastLoginTime.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "{\"userId\": \"" +
+                userId +
+                "\",\"openid\": \"" +
+                openid +
+                "\",\"nickName\": \"" +
+                nickName +
+                "\",\"birth\": \"" +
+                birth +
+                "\",\"age\": \"" +
+                age +
+                "\",\"sex\": \"" +
+                sex +
+                "\",\"phone\": \"" +
+                phone +
+                "\",\"password\": \"" +
+                password +
+                "\",\"nativePlaceCode\": \"" +
+                nativePlaceCode +
+                "\",\"authorityLevel\": \"" +
+                authorityLevel +
+                "\",\"qq\": \"" +
+                qq +
+                "\",\"avatarUrl\": \"" +
+                avatarUrl +
+                "\",\"isPhoneCheck\": \"" +
+                isPhoneCheck +
+                "\",\"isQqCheck\": \"" +
+                isQqCheck +
+                "\",\"isWeixinCheck\": \"" +
+                isWeixinCheck +
+                "\",\"registerDate\": \"" +
+                registerDate +
+                "\",\"lastLoginTime\": \"" +
+                lastLoginTime +
+                "\"}";
     }
 
     public Long getUserId() {

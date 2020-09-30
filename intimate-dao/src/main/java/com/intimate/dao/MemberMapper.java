@@ -19,6 +19,8 @@ public interface MemberMapper {
     // 批量插入数据
     int insertMemberInfos(List<Member> memberList);
 
+    // 根据groupId 查询数据
+
     List<Member> selectByExample(MemberExample example);
 
     Member selectByPrimaryKey(Long memberId);

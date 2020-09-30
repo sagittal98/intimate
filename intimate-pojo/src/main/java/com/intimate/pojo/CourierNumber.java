@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class CourierNumber implements Serializable {
@@ -10,6 +12,29 @@ public class CourierNumber implements Serializable {
     private Long userId;
 
     private Long noticeId;
+
+    @Override
+    public String toString() {
+        return "{\"cnId\": \"" +
+                cnId +
+                "\",\"cnNumber\": \"" +
+                cnNumber +
+                "\",\"userId\": \"" +
+                userId +
+                "\",\"noticeId\": \"" +
+                noticeId +
+                "\"}";
+    }
+
+    public CourierNumber() {
+    }
+
+    public CourierNumber(JSONObject courierNumberObject) {
+        this.cnId = courierNumberObject.getLong("cnId");
+        this.cnNumber = courierNumberObject.getString("cnNumber");
+        this.userId = courierNumberObject.getLong("userId");
+        this.noticeId = courierNumberObject.getLong("noticeId");
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -30,8 +30,9 @@
 	<dubbo:annotation package="com.intimate.login.controller" />
 
 
-	<!-- 时间设置超过1秒不重试连接！ -->
-	<dubbo:reference interface="com.intimate.login.service.ILoginService" id="iRegisterService" retries="0" timeout="1000"/>
+
+<!--	&lt;!&ndash; 时间设置超过1秒不重试连接！ &ndash;&gt;-->
+<!--	<dubbo:reference version="0.0.1" interface="com.intimate.login.service.ILoginService" id="iLoginService" retries="0" timeout="1000"/>-->
 
 
 	<!--指明springmvc拦截器位置-->

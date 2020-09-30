@@ -52,7 +52,7 @@ public interface IUserService {
      * 查询所有群成员
      * @return  返回成员列表
      */
-    Result<List<User>> queryAllGroupMember(Long groupId);
+    Result<List<User>> queryAllGroupMember(String operatorAuthority,Long groupId);
 
     /**
      * 通过手机号码查询群成员  实际是手机号+群id

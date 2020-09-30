@@ -103,15 +103,7 @@
     from user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
-
-  <select id="selectByPhones" resultMap="java.util.List" parameterType="java.util.List">
-    select
-    <include refid="Base_Column_List"/>
-    from user
-    where phone=#{phone,jdbcType=VARCHAR}
-  </select>
-
-  <select id="selectByPhoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="selectByPhones" resultMap="BaseResultMap" parameterType="java.util.List">
     select
     <include refid="Base_Column_List"/>
     from user
@@ -119,6 +111,11 @@
     <foreach collection="list" item="item" open="(" close=")" separator=",">
       #{item.phone,jdbcType=VARCHAR}
     </foreach>
+  </select>
+
+  <select id="selectByPhoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from user
+    where phone=#{phone,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -486,4 +483,6 @@
   <select id="checkPhone" resultType="java.lang.Integer" parameterType="java.lang.String">
     select count(phone) from user where phone=#{phoneNumber}
   </select>
+
+
 </mapper>

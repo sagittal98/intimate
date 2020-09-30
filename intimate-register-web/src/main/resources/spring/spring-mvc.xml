@@ -31,7 +31,7 @@
 
 
 	<!-- 时间设置超过5秒不重试连接！ -->
-	<dubbo:reference interface="com.intimate.register.service.IRegisterService" id="iRegisterService" retries="0" timeout="5000"/>
+	<dubbo:reference version="0.0.1" interface="com.intimate.register.service.IRegisterService" id="iRegisterService" retries="0" timeout="5000"/>
 
 
 	<!--指明springmvc拦截器位置-->

@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class IdCardInfo implements Serializable {
@@ -14,6 +16,37 @@ public class IdCardInfo implements Serializable {
     private String idCardImagePositive;
 
     private String idCardImageVerso;
+
+
+    public IdCardInfo() {
+    }
+
+    public IdCardInfo(JSONObject idCardInfoObject) {
+        this.idCardInfoId = idCardInfoObject.getLong("idCardInfoId");
+        this.idCardNumber = idCardInfoObject.getLong("idCardNumber");
+        this.idCardName =  idCardInfoObject.getString("idCardName");
+        this.userId = idCardInfoObject.getLong("userId");
+        this.idCardImagePositive = idCardInfoObject.getString("idCardImagePositive");
+        this.idCardImageVerso = idCardInfoObject.getString("idCardImageVerso");
+    }
+
+    @Override
+    public String toString() {
+        return "{\"idCardInfoId\": \"" +
+                idCardInfoId +
+                "\",\"idCardNumber\": \"" +
+                idCardNumber +
+                "\",\"idCardName\": \"" +
+                idCardName +
+                "\",\"userId\": \"" +
+                userId +
+                "\",\"idCardImagePositive\": \"" +
+                idCardImagePositive +
+                "\",\"idCardImageVerso\": \"" +
+                idCardImageVerso +
+                "\"}";
+    }
+
 
     private static final long serialVersionUID = 1L;
 

@@ -1,13 +1,13 @@
 package com.intimate.login.controller;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.intimate.common.model.CheckResult;
 import com.intimate.common.model.Result;
 import com.intimate.common.model.SMSInfoModel;
 import com.intimate.common.model.UserInfo;
 import com.intimate.common.token.JwtUtils;
 import com.intimate.login.service.ILoginService;
-import jdk.nashorn.internal.ir.annotations.Reference;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class LoginController {
     private SMSInfoModel smsInfoModel = new SMSInfoModel();
 
 
-    @Autowired
+    @Reference
     private ILoginService loginService;
 
     /**

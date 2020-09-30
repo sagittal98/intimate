@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Enclosure implements Serializable {
@@ -10,6 +12,29 @@ public class Enclosure implements Serializable {
     private String enclosureUrl;
 
     private Integer downloadTimes;
+
+    @Override
+    public String toString() {
+        return "{\"enclosureId\": \"" +
+                enclosureId +
+                "\",\"noticeId\": \"" +
+                noticeId +
+                "\",\"enclosureUrl\": \"" +
+                enclosureUrl +
+                "\",\"downloadTimes\": \"" +
+                downloadTimes +
+                "\"}";
+    }
+
+    public Enclosure() {
+    }
+
+    public Enclosure(JSONObject enclosureObject) {
+        this.enclosureId = enclosureObject.getLong("enclosureId");
+        this.noticeId = enclosureObject.getLong("noticeId");
+        this.enclosureUrl = enclosureObject.getString("enclosureUrl");
+        this.downloadTimes = enclosureObject.getInteger("downloadTimes");
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Address implements Serializable {
@@ -10,6 +12,29 @@ public class Address implements Serializable {
     private Integer addressCode;
 
     private String addressSpecific;
+
+    @Override
+    public String toString() {
+        return "{\"addressId\": \"" +
+                addressId +
+                "\",\"userId\": \"" +
+                userId +
+                "\",\"addressCode\": \"" +
+                addressCode +
+                "\",\"addressSpecific\": \"" +
+                addressSpecific +
+                "\"}";
+    }
+
+    public Address() {
+    }
+
+    public Address(JSONObject addressObject) {
+        this.addressId = addressObject.getLong("addressId");
+        this.userId = addressObject.getLong("userId");
+        this.addressCode = addressObject.getInteger("addressCode");
+        this.addressSpecific = addressObject.getString("addressSpecific");
+    }
 
     private static final long serialVersionUID = 1L;
 

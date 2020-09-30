@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Reply implements Serializable {
@@ -12,6 +14,32 @@ public class Reply implements Serializable {
     private String replyText;
 
     private String answerUrl;
+
+    @Override
+    public String toString() {
+        return "{\"replyId\": \"" +
+                replyId +
+                "\",\"noticeId\": \"" +
+                noticeId +
+                "\",\"userId\": \"" +
+                userId +
+                "\",\"replyText\": \"" +
+                replyText +
+                "\",\"answerUrl\": \"" +
+                answerUrl +
+                "\"}";
+    }
+
+    public Reply() {
+    }
+
+    public Reply(JSONObject replyObject) {
+        this.replyId = replyObject.getLong("replyId");
+        this.noticeId = replyObject.getLong("noticeId");
+        this.userId = replyObject.getLong("userId");
+        this.replyText = replyObject.getString("replyText");
+        this.answerUrl = replyObject.getString("answerUrl");
+    }
 
     private static final long serialVersionUID = 1L;
 

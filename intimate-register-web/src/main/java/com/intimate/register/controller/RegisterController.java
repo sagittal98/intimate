@@ -36,9 +36,6 @@ public class RegisterController {
 
     private SMSInfoModel smsInfoModel = new SMSInfoModel();
 
-
-
-
     /**
      *  检查手机号
      * @param req 请求参数  PhoneNumber

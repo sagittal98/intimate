@@ -1,7 +1,13 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static java.util.Locale.ENGLISH;
 
 public class Note implements Serializable {
     private Long noteId;
@@ -19,6 +25,45 @@ public class Note implements Serializable {
     private Date noteCreateTime;
 
     private Date noteStartTime;
+
+    @Override
+    public String toString() {
+        return "{\"noteId\": \"" +
+                noteId +
+                "\",\"noteTitle\": \"" +
+                noteTitle +
+                "\",\"noteText\": \"" +
+                noteText +
+                "\",\"userId\": \"" +
+                userId +
+                "\",\"modelId\": \"" +
+                modelId +
+                "\",\"isCardModel\": \"" +
+                isCardModel +
+                "\",\"noteCreateTime\": \"" +
+                noteCreateTime +
+                "\",\"noteStartTime\": \"" +
+                noteStartTime +
+                "\"}";
+    }
+
+    public Note(JSONObject noteObject) {
+        this.noteId = noteObject.getLong("noteId");
+        this.noteTitle = noteObject.getString("noteTitle");
+        this.noteText = noteObject.getString("noteText");
+        this.userId = noteObject.getLong("userId");
+        this.modelId = noteObject.getLong("modelId");
+        this.isCardModel = noteObject.getBoolean("isCardModel");
+        Object noteCreateTime = noteObject.get("noteCreateTime");
+        Object noteStartTime = noteObject.get("noteStartTime");
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",ENGLISH);
+        try {
+            this.noteCreateTime = df.parse(noteCreateTime.toString());
+            this.noteStartTime = df.parse(noteStartTime.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static final long serialVersionUID = 1L;
 

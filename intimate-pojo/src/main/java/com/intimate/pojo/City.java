@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class City implements Serializable {
@@ -8,6 +10,26 @@ public class City implements Serializable {
     private Short cityCode;
 
     private String cityName;
+
+    @Override
+    public String toString() {
+        return "{\"cityId\": \"" +
+                cityId +
+                "\",\"cityCode\": \"" +
+                cityCode +
+                "\",\"cityName\": \"" +
+                cityName +
+                "\"}";
+    }
+
+    public City() {
+    }
+
+    public City(JSONObject cityObject) {
+        this.cityId = cityObject.getShort("cityId");
+        this.cityCode = cityObject.getShort("cityCode");
+        this.cityName = cityObject.getString("cityName");
+    }
 
     private static final long serialVersionUID = 1L;
 

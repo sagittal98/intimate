@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Province implements Serializable {
@@ -8,6 +10,23 @@ public class Province implements Serializable {
     private Byte provinceCode;
 
     private String provinceName;
+
+    @Override
+    public String toString() {
+        return "{\"provinceId\": \"" +
+                provinceId +
+                "\",\"provinceCode\": \"" +
+                provinceCode +
+                "\",\"provinceName\": \"" +
+                provinceName +
+                "\"}";
+    }
+
+    public Province(JSONObject provinceObject) {
+        this.provinceId = provinceObject.getByte("provinceId");
+        this.provinceCode = provinceObject.getByte("provinceCode");
+        this.provinceName = provinceObject.getString("provinceName");
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -35,12 +54,4 @@ public class Province implements Serializable {
         this.provinceName = provinceName == null ? null : provinceName.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Province{" +
-                "provinceId=" + provinceId +
-                ", provinceCode=" + provinceCode +
-                ", provinceName='" + provinceName + '\'' +
-                '}';
-    }
 }

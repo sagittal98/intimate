@@ -1,5 +1,7 @@
 package com.intimate.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Model implements Serializable {
@@ -12,6 +14,32 @@ public class Model implements Serializable {
     private Byte modelLevel;
 
     private Byte modelType;
+
+    @Override
+    public String toString() {
+        return "{\"modelId\": \"" +
+                modelId +
+                "\",\"modelTitle\": \"" +
+                modelTitle +
+                "\",\"modelImageUrl\": \"" +
+                modelImageUrl +
+                "\",\"modelLevel\": \"" +
+                modelLevel +
+                "\",\"modelType\": \"" +
+                modelType +
+                "\"}";
+    }
+
+    public Model() {
+    }
+
+    public Model(JSONObject modelObject) {
+        this.modelId = modelObject.getLong("modelId");
+        this.modelTitle = modelObject.getString("modelTitle");
+        this.modelImageUrl = modelObject.getString("modelImageUrl");
+        this.modelLevel = modelObject.getByte("modelLevel");
+        this.modelType = modelObject.getByte("modelType");
+    }
 
     private static final long serialVersionUID = 1L;
 
