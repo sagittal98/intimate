@@ -61,7 +61,7 @@ public interface IUserService {
      * @param phoneNumber  手机号码
      * @return  返回用户信息
      */
-    Result<User> queryGroupUserInfoByPhone(String phoneNumber,Long groupId);
+    Result<User> queryGroupUserInfoByPhone(Long userId,String phoneNumber,Long groupId);
 
     /**
      * 查找用户

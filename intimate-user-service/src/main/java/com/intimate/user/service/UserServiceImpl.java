@@ -13,6 +13,7 @@ import com.intimate.common.time.TimeUtils;
 import com.intimate.dao.GroupMapper;
 import com.intimate.dao.MemberMapper;
 import com.intimate.dao.UserMapper;
+import com.intimate.pojo.Group;
 import com.intimate.pojo.Member;
 import com.intimate.pojo.MemberExample;
 import com.intimate.pojo.User;
@@ -234,6 +235,7 @@ public class UserServiceImpl implements IUserService {
         return Result.success(true,200);
     }
     /**
+     * 查询群组织所有成员
      * 1. 权限判定
      *  1. 必须是非普通成员方可查询
      * 2. 参数需要查询者权限、群组织id
@@ -297,7 +299,8 @@ public class UserServiceImpl implements IUserService {
             try {
                 redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1003)+groupId).set(memberList);
             }catch (Exception e){
-
+                logger.info("【日志提醒】放入缓存失败！");
+                return Result.error(227);
             }
             logger.info("【日志提醒】成功放入缓存！");
             logger.info("【日志提醒】开始获取userId！");
@@ -308,22 +311,96 @@ public class UserServiceImpl implements IUserService {
             logger.info("【日志提醒】userIds = " + userIds);
         }
         // 根据ids进行缓存查询
+        logger.info("【日志提醒】根据ids进行缓存查询！");
         for (Long userId:userIds){
+            logger.info("【日志提醒】缓存查询是否存在！");
             Boolean hasUser = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1002) + userId);
             if (hasUser){
+                logger.info("【日志提醒】缓存查询存在！");
+                logger.info("【日志提醒】获取用户信息！");
                 JSONObject userObject = JSONObject.parseObject(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1002) + userId).get()));
+                logger.info("【日志提醒】获取用户信息：userObject = " + userObject);
                 User user = new User(userObject);
+                logger.info("【日志提醒】写入userList中！");
                 userList.add(user);
             }else {
-                User user = userMapper.selectByPrimaryKey(userId);
-                userList.add(user);
+                logger.info("【日志提醒】缓存查询不存在！");
+                try {
+                    logger.info("【日志提醒】开始数据库查询！");
+                    User user = userMapper.selectByPrimaryKey(userId);
+                    logger.info("【日志提醒】成功查询：user = " + user.toString());
+                    logger.info("【日志提醒】写入userList中去！");
+                    userList.add(user);
+                    try {
+                        logger.info("【日志提醒】将数据库查询的数据存入缓存中！");
+                        redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1002) + user.getUserId()).set(user);
+                        logger.info("【日志提醒】缓存成功！");
+                    }catch (Exception e){
+                        logger.info("【日志提醒】缓存失败！");
+                    }
+                }catch (Exception e){
+                    logger.info("【日志提醒】数据库查询失败，但是继续，不影响！");
+                }
             }
         }
+        logger.info("【日志提醒】成功查询！");
         return Result.success(userList,200);
     }
 
+
+    /**
+     * 通过手机号查询群组织成员
+     *
+     *
+     *
+     * 1. 权限判定，必须是组织者身份
+     * 2. 查询缓存中是否有此成员存在
+     * 3. 缓存中如果没有，则查询数据库中是否存在
+     * 4. 返回查询结果
+     *
+     * 成员必须是存在群组织中的方可进行查询，否则不行
+     *
+     * */
     @Override
-    public Result<User> queryGroupUserInfoByPhone(String phoneNumber, Long groupId) {
+    public Result<User> queryGroupUserInfoByPhone(Long userId,String phoneNumber, Long groupId) {
+        logger.info("【日志提醒】通过手机号查询群组织成员！");
+        logger.info("【日志提醒】查询缓存中当前群组织信息！");
+        JSONObject groupObject = JSONObject.parseObject(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1004) + groupId).get()));
+        Group group = new Group(groupObject);
+        if (userId.equals(group.getUserId())){
+            Boolean hasGroupKey = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1005) + phoneNumber);
+            if(hasGroupKey){
+                Long selectUserId = Long.parseLong(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1005) + phoneNumber).get()));
+                Boolean hasSelectUserId = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1002) + selectUserId);
+                if(hasSelectUserId){
+                    try {
+                        JSONObject userObject = JSONObject.parseObject(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1002) + selectUserId).get()));
+                        User user = new User(userObject);
+                        return Result.success(user,200);
+                    }catch (Exception e){
+                        System.out.println("缓存获取失败！");
+                        return Result.error(227);
+                    }
+                }else {
+                    try {
+                        User user = userMapper.selectByPrimaryKey(selectUserId);
+                        try {
+                            redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1002)+selectUserId).set(user);
+                        }catch (Exception e){
+                            System.out.println("缓存失败！");
+                        }
+                        return Result.success(user,200);
+                    }catch (Exception e){
+                        return Result.error(221);
+                    }
+                }
+            }else {
+                // 用户未缓存
+
+
+            }
+        }
+
         return null;
     }
 
