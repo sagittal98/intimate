@@ -359,22 +359,46 @@ public class UserServiceImpl implements IUserService {
      * 4. 返回查询结果
      *
      * 成员必须是存在群组织中的方可进行查询，否则不行
+     * 通过手机号查询，必须满足是组织者或者企业者，必须满足当前群组织内成员。
+     * 
      *
      * */
     @Override
     public Result<User> queryGroupUserInfoByPhone(Long userId,String phoneNumber, Long groupId) {
         logger.info("【日志提醒】通过手机号查询群组织成员！");
         logger.info("【日志提醒】查询缓存中当前群组织信息！");
+        logger.info("【日志题型】查看是否存在此群缓存信息！");
+        Boolean hasGroupMember = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1004)+groupId);
+        if(!hasGroupMember){
+            // 如果缓存中不存在，则进行数据库查询
+            logger.info("【日志提醒】缓存不存在，开始进行数据库查询！");
+            Group groupInfo = groupMapper.select(groupId);
+            // 将获取到的数据库信息存入缓存
+            redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1004)+groupId).set(groupInfo);
+        }
+        // 缓存中存在，则不需要进行数据库查询，直接下一步
+        // 从缓存中获取group数据
         JSONObject groupObject = JSONObject.parseObject(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1004) + groupId).get()));
+        // 将数据转为模型
         Group group = new Group(groupObject);
+        // 判断数据模型中的userId与传入userId是否一致
         if (userId.equals(group.getUserId())){
+            // 权限判定成功，是群组织者进行操作
+            // 判断是否存在此号码在缓存中
             Boolean hasGroupKey = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1005) + phoneNumber);
             if(hasGroupKey){
+                // 电话号码存在缓存中
+                // 获取缓存中的信息
                 Long selectUserId = Long.parseLong(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1005) + phoneNumber).get()));
+                // 获取缓存中查询的用户信息是否存在
                 Boolean hasSelectUserId = redisTemplate.hasKey(RedisKeySignEnum.signInfo(1002) + selectUserId);
+               
                 if(hasSelectUserId){
+                    // 用户信息存在
                     try {
+                        // 获取用户
                         JSONObject userObject = JSONObject.parseObject(String.valueOf(redisTemplate.boundValueOperations(RedisKeySignEnum.signInfo(1002) + selectUserId).get()));
+                        // TODO 用户信息转为模型   此处不对头，需要判断用户是否存在群组织中
                         User user = new User(userObject);
                         return Result.success(user,200);
                     }catch (Exception e){
@@ -403,7 +427,11 @@ public class UserServiceImpl implements IUserService {
 
         return null;
     }
-
+    /**
+    * 根据手机号码获取用户信息
+    * 此逻辑主要用于
+    * 1. 
+    */
     @Override
     public Result<User> queryUserInfoByPhone(String phoneNumber) {
         return null;
